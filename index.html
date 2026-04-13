@@ -843,10 +843,10 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
 function VerifResultCard({ k, flagCount, isAuthentic, isJpg }) {
   const [expanded, setExpanded] = useState(false);
 
-  const metadataScore = isJpg ? null : 96;
-  const fontScore = 93;
-  const checksumScore = isJpg ? null : 98;
-  const patternScore = flagCount > 0 ? 72 : 91;
+  const metadataScore = isJpg ? null : 100;
+  const fontScore = 100;
+  const checksumScore = isJpg ? null : 100;
+  const patternScore = flagCount > 0 ? 100 : 100;
   const validScores = [metadataScore, fontScore, checksumScore, patternScore].filter(s => s !== null);
   const overallScore = Math.round(validScores.reduce((a,b) => a+b, 0) / validScores.length * 10) / 10;
 
@@ -857,7 +857,7 @@ function VerifResultCard({ k, flagCount, isAuthentic, isJpg }) {
   ];
 
   const detailParams = isJpg ? [
-    { category: "Format File (JPG)", score: 60, items: [
+    { category: "Format File (JPG)", score: 0, items: [
       { label: "Format File", value: "JPG / Image - Metadata PDF tidak tersedia", status: "warn" },
       { label: "Verifikasi Source", value: "Tidak dapat diverifikasi (bukan PDF asli)", status: "fail" },
     ]},
