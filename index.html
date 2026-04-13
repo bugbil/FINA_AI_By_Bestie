@@ -600,7 +600,7 @@ function LoginScreen({ onLogin }) {
    ================================================================ */
 function DashboardScreen({ onNavigate, onSelectKonsumen }) {
   const currentUser = useContext(UserContext);
-  const konsumen = buildKonsumenDB(currentUser.branches);
+  const konsumen = buildKonsumenDB(currentUser.branches).slice(0, 8);
   const diproses = konsumen.filter(k => k.status === "done");
   const STAT_DATA = [
     { label: "Aplikasi Bulan Ini", val: String(konsumen.length), color: "var(--blue-600)", barColor: "var(--blue-600)", list: konsumen },
@@ -668,6 +668,24 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
       const q = searchQuery.trim();
       if (q === "1111111") {
         const baseK = konsumenDB[0] || ALL_KONSUMEN[0];
+        const CUSTOM_CASES = {
+  "1111111": { status: "gagal", format: "jpg" },
+  "3333333": {
+    status: "berhasil",
+    format: "pdf",
+    note: "Karyawan, KPR BTN, indikasi BCA Finance dibayar orang lain, surplus positif, PLN 1.5jt, Telkomsel 0812345678 350rb"
+  },
+  "2222222": {
+    status: "berhasil",
+    format: "pdf",
+    note: "Wiraswasta, anomali transaksi usaha"
+  },
+  "4444444": {
+    status: "berhasil",
+    format: "jpg",
+    note: "KPR BTN, pinjol 15jt bulan ke-2, PLN 500rb, Telkomsel 0812345678 350rb"
+  }
+};
         const wrongK = { ...baseK, appId: "1111111", scenario: "wrong_account", wrongRekName: "BAMBANG SUSILO" };
         setFoundKonsumen(wrongK);
         setSearching(false);
@@ -843,19 +861,17 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
 function VerifResultCard({ k, flagCount, isAuthentic, isJpg }) {
   const [expanded, setExpanded] = useState(false);
 
-  const metadataScore = isJpg ? null : 96;
-  const fontScore = 93;
-  const checksumScore = isJpg ? null : 98;
+  const metadataScore = isJpg ? null : 100;
+  const fontScore = 100;
+  const checksumScore = isJpg ? null : 100;
   const patternScore = flagCount > 0 ? 72 : 91;
   const validScores = [metadataScore, fontScore, checksumScore, patternScore].filter(s => s !== null);
   const overallScore = Math.round(validScores.reduce((a,b) => a+b, 0) / validScores.length * 10) / 10;
 
   const summaryParams = [
-    ["Integritas Metadata", isJpg ? "N/A (JPG)" : "Valid", isJpg ? "var(--gray-400)" : "var(--green-600)"],
-    ["Konsistensi Font", "Asli", "var(--green-600)"],
-    ["Checksum Angka", isJpg ? "N/A (JPG)" : "Sesuai", isJpg ? "var(--gray-400)" : "var(--green-600)"],
-    ["Pola Transaksi", flagCount > 0 ? flagCount + " Flag" : "Normal", flagCount > 0 ? "var(--amber-600)" : "var(--green-600)"],
-  ];
+    ["Integritas Metadata", isJpg ? "Tidak bisa diproses (JPG)" : "0%", isJpg ? "var(--gray-400)" : "var(--green-600)"],
+    ["Konsistensi Font", "100%", "var(--green-600)"],
+    ["Checksum Angka", isJpg ? "Tidak bisa diproses (JPG)" : "100%", isJpg ? "var(--gray-400)" : "var(--green-600)"],
 
   const detailParams = isJpg ? [
     { category: "Format File (JPG)", score: 60, items: [
@@ -866,11 +882,6 @@ function VerifResultCard({ k, flagCount, isAuthentic, isJpg }) {
       { label: "Font & Tipografi", value: "Konsisten dengan format standar perbankan", status: "pass" },
       { label: "Format Header Rekening", value: "Sesuai format standar mutasi", status: "pass" },
     ]},
-    { category: "Pola Transaksi", score: patternScore, items: [
-      { label: "Konsistensi Nominal", value: "Lulus (Visual)", status: "pass" },
-      { label: "Pola Transaksi", value: flagCount > 0 ? flagCount + " transaksi mencurigakan" : "Normal", status: flagCount > 0 ? "fail" : "pass" },
-    ]},
-  ] : [
     { category: "Integritas Metadata", score: metadataScore, items: [
       { label: "PDF Producer", value: k ? "Bank " + k.bank + " e-Statement" : "Bank BCA e-Statement", status: "pass" },
       { label: "Creation Date", value: "Konsisten dengan periode", status: "pass" },
@@ -963,7 +974,6 @@ function VerificationScreen({ onNavigate, konsumen }) {
     "OCR - ekstraksi teks dari gambar",
     "Verifikasi kepemilikan rekening",
     "Analisis konsistensi font & tipografi",
-    "Pengecekan pola transaksi visual",
     "Deteksi anomali transaksi",
     "Filter transaksi self-transfer dan window dressing",
     "Identifikasi transaksi usaha",
