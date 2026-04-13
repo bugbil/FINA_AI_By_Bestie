@@ -266,8 +266,8 @@ const TEAM_USERS = [
    FIXED KONSUMEN DATABASE - 8 scenarios, random 7-digit IDs
    ================================================================ */
 const ALL_KONSUMEN = [
-  { id: "K01", appId: "4821937", mid: "7103582", name: "Budi Santoso", pasangan: "Siti Nurhaliza", prod: "KKB", ph: 285, cabang: "Direct Sales Batam", status: "done", cmo: "Susi Susanti", bank: "BCA", noRek: "1234567890", namaRek: "BUDI SANTOSO", nik: "2171012345678901", months: 3, profesi: "karyawan", employer: "PT Sumber Makmur", jabatan: "Manager Operasional", income: 15000000, scenario: "karyawan_gaji" },
-  { id: "K02", appId: "5739204", mid: "8294016", name: "Sri Wahyuni", pasangan: "Agus Prabowo", prod: "KKB", ph: 195, cabang: "Direct Sales Batam", status: "done", cmo: "Agus Prabowo", bank: "BCA", noRek: "2345678901", namaRek: "SRI WAHYUNI", nik: "2171014567890123", months: 3, profesi: "karyawan", employer: "PT Mandiri Jaya", jabatan: "Staff Accounting", income: 8500000, scenario: "pinjol_kpr" },
+  { id: "K01", appId: "4821937", mid: "7103582", name: "Budi Santoso", pasangan: "Siti Nurhaliza", prod: "DS", ph: 285, cabang: "Direct Sales Batam", status: "done", cmo: "Susi Susanti", bank: "BCA", noRek: "1234567890", namaRek: "BUDI SANTOSO", nik: "2171012345678901", months: 3, profesi: "karyawan", employer: "PT Sumber Makmur", jabatan: "Manager Operasional", income: 15000000, scenario: "karyawan_gaji" },
+  { id: "K02", appId: "5739204", mid: "8294016", name: "Sri Wahyuni", pasangan: "Agus Prabowo", prod: "CS Mobil", ph: 195, cabang: "Direct Sales Batam", status: "done", cmo: "Agus Prabowo", bank: "BCA", noRek: "2345678901", namaRek: "SRI WAHYUNI", nik: "2171014567890123", months: 3, profesi: "karyawan", employer: "PT Mandiri Jaya", jabatan: "Staff Accounting", income: 8500000, scenario: "pinjol_kpr" },
   { id: "K03", appId: "6482019", mid: "3917405", name: "Ahmad Fauzi", pasangan: "Rina Kartika", prod: "DS", ph: 150, cabang: "Direct Sales Pontianak", status: "done", cmo: "Rina Kartika", bank: "Mandiri", noRek: "3456789012", namaRek: "AHMAD FAUZI", nik: "6171023456789012", months: 3, profesi: "karyawan", employer: "CV Cahaya Abadi", jabatan: "Supervisor", income: 7200000, scenario: "window_dressing" },
   { id: "K04", appId: "3150847", mid: "6028193", name: "Dewi Lestari", pasangan: "Hendra Wijaya", prod: "CS Mobil", ph: 320, cabang: "Direct Sales Batam", status: "done", cmo: "Susi Susanti", bank: "BCA", noRek: "4567890123", namaRek: "DEWI LESTARI", nik: "2171015678901234", months: 3, profesi: "wiraswasta", employer: "UD Berkah Sejahtera", jabatan: "Pemilik", namaUsaha: "UD Berkah Sejahtera", bidangUsaha: "Distributor Bahan Bangunan", suppliers: ["PT SEMEN PADANG", "PT HOLCIM INDONESIA", "TOKO BESI MAKMUR"], clients: ["CV BANGUN JAYA", "PT KONSTRUKSI MANDIRI", "UD TOKO BANGUNAN ABADI"], income: 25000000, scenario: "wiraswasta" },
   { id: "K05", appId: "9274136", mid: "1485920", name: "Rino Prasetyo", pasangan: "Maya Sari", prod: "KKB", ph: 210, cabang: "Direct Sales Pontianak", status: "done", cmo: "Doni Hermawan", bank: "BNI", noRek: "5678901234", namaRek: "RINO PRASETYO", nik: "6171024567890123", months: 3, profesi: "karyawan", employer: "PT Kalimantan Energi", jabatan: "Staff Teknik", income: 9800000, scenario: "over_leverage" },
@@ -588,7 +588,7 @@ function LoginScreen({ onLogin }) {
           <div className="login-field"><label>Password</label><input value={pass} onChange={e => setPass(e.target.value)} type="password" placeholder="Masukkan password" /></div>
           <button className="login-btn" onClick={handleLogin} disabled={loading}>{loading ? "MENGAUTENTIKASI" + ".".repeat(dots) : "MASUK"}</button>
         </div>
-        <div className="login-footer">Powered by FINA AI</div>
+        <div className="login-footer">Powered by FINA AI - BCAF Grand Innovation 2026</div>
       </div>
     </div>
   );
@@ -665,12 +665,16 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
     setUploadPasangan(false);
     setTimeout(() => {
       const q = searchQuery.trim();
-      // Try exact match first, else pick random konsumen from branch
+      if (q === "1111111") {
+        const baseK = konsumenDB[0] || ALL_KONSUMEN[0];
+        const wrongK = { ...baseK, appId: "1111111", scenario: "wrong_account", wrongRekName: "BAMBANG SUSILO" };
+        setFoundKonsumen(wrongK);
+        setSearching(false);
+        return;
+      }
       let found = konsumenDB.find(k => k.appId === q || k.mid === q);
       if (!found && /^\d{7}$/.test(q)) {
-        // Any 7-digit number -> pick a random konsumen from the user's branch
         found = konsumenDB[Math.floor(Math.random() * konsumenDB.length)];
-        // Clone with the entered ID
         found = { ...found, appId: q };
       }
       setFoundKonsumen(found || null);
@@ -678,8 +682,19 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
     }, 1200);
   }
 
-  function toggleKFile(m) { setKonsumenFiles(prev => { if (prev[m]) { const n = { ...prev }; delete n[m]; return n; } return { ...prev, [m]: { name: "mutasi_konsumen_" + m.replace(/ /g, "_").toLowerCase() + ".pdf", size: (1.2 + Math.random() * 2).toFixed(1) + " MB" } }; }); }
-  function togglePFile(m) { setPasanganFiles(prev => { if (prev[m]) { const n = { ...prev }; delete n[m]; return n; } return { ...prev, [m]: { name: "mutasi_pasangan_" + m.replace(/ /g, "_").toLowerCase() + ".pdf", size: (1.2 + Math.random() * 2).toFixed(1) + " MB" } }; }); }
+  function toggleKFile(m) {
+    setKonsumenFiles(prev => {
+      if (prev[m]) { const n = { ...prev }; delete n[m]; return n; }
+      const isJpg = Math.random() < 0.25; // 25% chance simulated JPG upload
+      return { ...prev, [m]: { name: "mutasi_konsumen_" + m.replace(/ /g, "_").toLowerCase() + (isJpg ? ".jpg" : ".pdf"), size: (1.2 + Math.random() * 2).toFixed(1) + " MB", isJpg } };
+    });
+  }
+  function togglePFile(m) {
+    setPasanganFiles(prev => {
+      if (prev[m]) { const n = { ...prev }; delete n[m]; return n; }
+      return { ...prev, [m]: { name: "mutasi_pasangan_" + m.replace(/ /g, "_").toLowerCase() + ".pdf", size: (1.2 + Math.random() * 2).toFixed(1) + " MB", isJpg: false } };
+    });
+  }
 
   const kCount = Object.keys(konsumenFiles).length;
   const pCount = Object.keys(pasanganFiles).length;
@@ -781,9 +796,36 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
             </div>
           )}
 
+          {/* Notifications */}
+          {uploadKonsumen && kCount === 1 && (
+            <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: "var(--radius-md)", padding: "12px 14px", marginBottom: 12 }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                <span style={{ fontSize: 16, flexShrink: 0 }}>⚠️</span>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--amber-600)" }}>Data Hanya 1 Bulan</div>
+                  <div style={{ fontSize: 11, color: "var(--gray-700)", marginTop: 3, lineHeight: 1.6 }}>Data mutasi yang dianalisa hanya <strong>1 bulan</strong>. Disarankan untuk mengupload mutasi minimal <strong>3 bulan</strong> agar hasil analisa cashflow, stabilitas pendapatan, dan deteksi pola lebih komprehensif dan akurat.</div>
+                </div>
+              </div>
+            </div>
+          )}
+          {uploadKonsumen && Object.values(konsumenFiles).some(f => f.isJpg) && (
+            <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", borderRadius: "var(--radius-md)", padding: "12px 14px", marginBottom: 12 }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--blue-600)" }}>Format JPG Terdeteksi</div>
+                  <div style={{ fontSize: 11, color: "var(--gray-700)", marginTop: 3, lineHeight: 1.6 }}>
+                    File yang diupload berformat <strong>JPG / gambar</strong>. FINA AI <strong>tidak dapat menganalisa metadata PDF source</strong> dari format ini (termasuk CreationDate, Producer, dan Checksum digital). Namun, keaslian dokumen tetap dapat diverifikasi melalui parameter lain seperti: konsistensi font dan tipografi, pola transaksi, format layout, dan konsistensi nominal secara visual. Disarankan menggunakan file <strong>PDF langsung dari e-banking</strong> untuk hasil verifikasi yang lebih komprehensif.
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <button className="btn-primary" onClick={() => {
             if (!canProceed) return;
-            const meta = { ...foundKonsumen, months: Math.max(kCount, pCount, 3), uploadKonsumen, uploadPasangan, kCount, pCount };
+            const allKFiles = Object.values(konsumenFiles);
+            const hasJpg = allKFiles.some(f => f.isJpg);
+            const meta = { ...foundKonsumen, months: Math.max(kCount, pCount, 3), uploadKonsumen, uploadPasangan, kCount, pCount, hasJpg };
             onUploadComplete(meta);
           }} disabled={!canProceed}>
             Mulai Verifikasi dan Analisa ({uploadKonsumen ? kCount : 0}{uploadPasangan ? " + " + pCount : ""} file)
@@ -797,27 +839,110 @@ function UploadScreen({ onNavigate, onUploadComplete }) {
 /* ================================================================
    VERIFICATION SCREEN
    ================================================================ */
-function VerifResultCard({ k, flagCount, isAuthentic }) {
+function VerifResultCard({ k, flagCount, isAuthentic, isJpg }) {
   const [expanded, setExpanded] = useState(false);
-  const metadataScore = 96; const fontScore = 93; const checksumScore = 98;
+
+  const metadataScore = isJpg ? null : 96;
+  const fontScore = 93;
+  const checksumScore = isJpg ? null : 98;
   const patternScore = flagCount > 0 ? 72 : 91;
-  const overallScore = Math.round((metadataScore + fontScore + checksumScore + patternScore) / 4 * 10) / 10;
-  const summaryParams = [["Integritas Metadata", "Valid", "var(--green-600)"], ["Konsistensi Font", "Asli", "var(--green-600)"], ["Checksum Angka", "Sesuai", "var(--green-600)"], ["Pola Transaksi", flagCount > 0 ? flagCount + " Flag" : "Normal", flagCount > 0 ? "var(--amber-600)" : "var(--green-600)"]];
+  const validScores = [metadataScore, fontScore, checksumScore, patternScore].filter(s => s !== null);
+  const overallScore = Math.round(validScores.reduce((a,b) => a+b, 0) / validScores.length * 10) / 10;
+
+  const summaryParams = [
+    ["Integritas Metadata", isJpg ? "N/A (JPG)" : "Valid", isJpg ? "var(--gray-400)" : "var(--green-600)"],
+    ["Konsistensi Font", "Asli", "var(--green-600)"],
+    ["Checksum Angka", isJpg ? "N/A (JPG)" : "Sesuai", isJpg ? "var(--gray-400)" : "var(--green-600)"],
+    ["Pola Transaksi", flagCount > 0 ? flagCount + " Flag" : "Normal", flagCount > 0 ? "var(--amber-600)" : "var(--green-600)"],
+  ];
+
+  const detailParams = isJpg ? [
+    { category: "Format File (JPG)", score: 60, items: [
+      { label: "Format File", value: "JPG / Image - Metadata PDF tidak tersedia", status: "warn" },
+      { label: "Verifikasi Source", value: "Tidak dapat diverifikasi (bukan PDF asli)", status: "fail" },
+    ]},
+    { category: "Konsistensi Font", score: fontScore, items: [
+      { label: "Font & Tipografi", value: "Konsisten dengan format standar perbankan", status: "pass" },
+      { label: "Format Header Rekening", value: "Sesuai format standar mutasi", status: "pass" },
+    ]},
+    { category: "Pola Transaksi", score: patternScore, items: [
+      { label: "Konsistensi Nominal", value: "Lulus (Visual)", status: "pass" },
+      { label: "Pola Transaksi", value: flagCount > 0 ? flagCount + " transaksi mencurigakan" : "Normal", status: flagCount > 0 ? "fail" : "pass" },
+    ]},
+  ] : [
+    { category: "Integritas Metadata", score: metadataScore, items: [
+      { label: "PDF Producer", value: k ? "Bank " + k.bank + " e-Statement" : "Bank BCA e-Statement", status: "pass" },
+      { label: "Creation Date", value: "Konsisten dengan periode", status: "pass" },
+      { label: "Modification History", value: "Tidak ada modifikasi", status: "pass" },
+      { label: "Digital Signature", value: "Terverifikasi", status: "pass" },
+    ]},
+    { category: "Konsistensi Font", score: fontScore, items: [
+      { label: "Font Family", value: "Seragam (Arial/Helvetica)", status: "pass" },
+      { label: "Font Size Variance", value: "Normal (< 0.5pt)", status: "pass" },
+      { label: "Embedding Type", value: "Subset embedded", status: "pass" },
+      { label: "Anomali Karakter", value: "Tidak ditemukan", status: "pass" },
+    ]},
+    { category: "Checksum Angka", score: checksumScore, items: [
+      { label: "Saldo Awal vs Akhir", value: "Cocok semua bulan", status: "pass" },
+      { label: "Total Debit/Kredit", value: "Sesuai dengan saldo", status: "pass" },
+      { label: "Running Balance", value: "Kalkulasi benar", status: "pass" },
+    ]},
+    { category: "Pola Transaksi", score: patternScore, items: [
+      { label: "Window Dressing", value: k?.scenario === "window_dressing" ? "Terdeteksi!" : "Tidak terdeteksi", status: k?.scenario === "window_dressing" ? "fail" : "pass" },
+      { label: "Self-Transfer", value: "Terdeteksi & difilter", status: "warn" },
+      { label: "Pinjol / P2P Lending", value: flagCount > 0 ? flagCount + " transaksi terdeteksi" : "Tidak terdeteksi", status: flagCount > 0 ? "fail" : "pass" },
+      { label: "Frekuensi Abnormal", value: "Normal", status: "pass" },
+    ]},
+  ];
+
   return (
     <div className={`verif-result ${isAuthentic ? "authentic" : "manipulated"}`} style={{ animation: "fadeUp 0.35s ease" }}>
       <div className="verif-result-header">
         <div className={`verif-icon ${isAuthentic ? "pass" : "fail"}`}>{isAuthentic ? "\u2713" : "\u2717"}</div>
         <div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: isAuthentic ? "var(--green-600)" : "var(--red-600)" }}>{isAuthentic ? "DOKUMEN ASLI / AUTHENTIC" : "INDIKASI MANIPULASI"}</div>
-          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>Confidence Score: {overallScore}%</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: isAuthentic ? "var(--green-600)" : "var(--red-600)" }}>
+            {isAuthentic ? "DOKUMEN ASLI / AUTHENTIC" : "INDIKASI MANIPULASI"}
+          </div>
+          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>Confidence Score: {overallScore}% {isJpg ? "(Format JPG - Parameter terbatas)" : ""}</div>
         </div>
       </div>
+
       <div className="verif-grid">
-        {summaryParams.map(([l, v, col], i) => (<div key={i} className="verif-cell"><div className="verif-cell-label">{l}</div><div className="verif-cell-val" style={{ color: col }}>{v}</div></div>))}
+        {summaryParams.map(([l, v, col], i) => (
+          <div key={i} className="verif-cell">
+            <div className="verif-cell-label">{l}</div>
+            <div className="verif-cell-val" style={{ color: col }}>{v}</div>
+          </div>
+        ))}
       </div>
-      <button onClick={() => setExpanded(v => !v)} style={{ width: "100%", marginTop: 14, padding: "10px 16px", borderRadius: "var(--radius-md)", border: isAuthentic ? "1px solid #a7f3d0" : "1px solid #fecaca", background: expanded ? "rgba(255,255,255,0.7)" : isAuthentic ? "rgba(5,150,105,0.08)" : "rgba(220,38,38,0.08)", color: isAuthentic ? "var(--green-600)" : "var(--red-600)", fontWeight: 700, fontSize: 12, cursor: "pointer", fontFamily: "var(--font)", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+
+      {expanded && (
+        <div style={{ marginTop: 16, animation: "fadeUp 0.3s ease" }}>
+          {detailParams.map((cat, ci) => (
+            <div key={ci} style={{ marginBottom: 14 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "var(--gray-700)", textTransform: "uppercase", letterSpacing: "0.5px" }}>{cat.category}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: cat.score >= 90 ? "var(--green-600)" : cat.score >= 75 ? "var(--amber-600)" : "var(--red-600)" }}>{cat.score}%</div>
+              </div>
+              {cat.items.map((item, ii) => (
+                <div key={ii} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 10px", background: "rgba(255,255,255,0.7)", borderRadius: "var(--radius-sm)", marginBottom: 4, borderLeft: "3px solid " + (item.status === "pass" ? "var(--green-500)" : item.status === "warn" ? "var(--amber-500)" : "var(--red-500)") }}>
+                  <div style={{ fontSize: 11, color: "var(--gray-600)" }}>{item.label}</div>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: item.status === "pass" ? "var(--green-600)" : item.status === "warn" ? "var(--amber-600)" : "var(--red-600)" }}>{item.value}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <button onClick={() => setExpanded(v => !v)} style={{
+        width: "100%", marginTop: 14, padding: "10px 16px", borderRadius: "var(--radius-md)",
+        border: isAuthentic ? "1px solid #a7f3d0" : "1px solid #fecaca", background: expanded ? "rgba(255,255,255,0.7)" : isAuthentic ? "rgba(5,150,105,0.08)" : "rgba(220,38,38,0.08)",
+        color: isAuthentic ? "var(--green-600)" : "var(--red-600)", fontWeight: 700, fontSize: 12, cursor: "pointer",
+        fontFamily: "var(--font)", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6
+      }}>
         {expanded ? "Sembunyikan Detail" : "Lihat Lebih Lengkap"}
-        <span style={{ fontSize: 10, transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}>{"\u25BC"}</span>
+        <span style={{ fontSize: 10, transition: "transform 0.2s", transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}>{"\u25BC"}</span>
       </button>
     </div>
   );
@@ -826,11 +951,22 @@ function VerifResultCard({ k, flagCount, isAuthentic }) {
 function VerificationScreen({ onNavigate, konsumen }) {
   const k = konsumen;
   const isWrongAccount = k?.scenario === "wrong_account";
+  const isJpg = k?.hasJpg || false;
   const [step, setStep] = useState(0);
   const steps = isWrongAccount ? [
-    "Membaca format dokumen PDF",
+    "Membaca format dokumen",
     "OCR - ekstraksi teks dan angka",
     "Verifikasi kepemilikan rekening",
+  ] : isJpg ? [
+    "Membaca format file JPG / gambar",
+    "OCR - ekstraksi teks dari gambar",
+    "Verifikasi kepemilikan rekening",
+    "Analisis konsistensi font & tipografi",
+    "Pengecekan pola transaksi visual",
+    "Deteksi anomali transaksi",
+    "Filter transaksi self-transfer dan window dressing",
+    "Identifikasi transaksi usaha",
+    "Menghasilkan laporan verifikasi (metadata PDF terbatas)",
   ] : [
     "Membaca format dokumen PDF",
     "OCR - ekstraksi teks dan angka",
@@ -860,10 +996,10 @@ function VerificationScreen({ onNavigate, konsumen }) {
         <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>AI Document Verification & OCR</div>
       </div>
       <div className="card" style={{ display: "flex", gap: 14, alignItems: "center" }}>
-        <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: "var(--red-100)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 13, color: "var(--red-500)", flexShrink: 0 }}>PDF</div>
+        <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: isJpg ? "#fef3c7" : "var(--red-100)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 13, color: isJpg ? "var(--amber-600)" : "var(--red-500)", flexShrink: 0 }}>{isJpg ? "JPG" : "PDF"}</div>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 600 }}>mutasi_{k ? k.name.toLowerCase().replace(/ /g, "_") : "konsumen"}.pdf</div>
-          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{k ? k.months : 3} file - Bank {k ? k.bank : "BCA"}</div>
+          <div style={{ fontSize: 13, fontWeight: 600 }}>mutasi_{k ? k.name.toLowerCase().replace(/ /g, "_") : "konsumen"}.{isJpg ? "jpg" : "pdf"}</div>
+          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{k ? (k.kCount || k.months) : 3} file - Bank {k ? k.bank : "BCA"}{isJpg ? " - ⚠️ Format JPG" : ""}</div>
         </div>
       </div>
       <div className="card">
@@ -897,7 +1033,15 @@ function VerificationScreen({ onNavigate, konsumen }) {
       )}
       {done && !failed && (
         <>
-          <VerifResultCard k={k} flagCount={flagCount} isAuthentic={true} />
+          {k?.kCount === 1 && (
+            <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: "var(--radius-md)", padding: "12px 14px", marginBottom: 12 }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                <span style={{ fontSize: 14, flexShrink: 0 }}>⚠️</span>
+                <div style={{ fontSize: 11, color: "var(--gray-700)", lineHeight: 1.6 }}><strong style={{ color: "var(--amber-600)" }}>Data 1 Bulan:</strong> Analisa didasarkan pada mutasi <strong>1 bulan</strong> saja. Disarankan upload minimal 3 bulan untuk hasil yang lebih komprehensif.</div>
+              </div>
+            </div>
+          )}
+          <VerifResultCard k={k} flagCount={flagCount} isAuthentic={true} isJpg={isJpg} />
           {flagCount > 0 && (
             <div style={{ background: "var(--amber-100)", border: "1px solid #fde68a", borderRadius: "var(--radius-md)", padding: 14, marginBottom: 16 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: "var(--amber-600)" }}>{flagCount} FLAG TERDETEKSI</div>
