@@ -54,866 +54,190 @@ input, button, select { font-family: inherit; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
 
-/* ===== LAYOUT SHELL ===== */
-.app-shell {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+.app-shell { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
+@media (min-width: 768px) { .app-shell.logged-in { flex-direction: row; } }
 
-/* Desktop: centered card with max-width */
+.sidebar { display: none; }
 @media (min-width: 768px) {
-  .app-shell.logged-in {
-    flex-direction: row;
-  }
-}
-
-/* ===== SIDEBAR (Desktop only) ===== */
-.sidebar {
-  display: none;
-}
-@media (min-width: 768px) {
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 260px;
-    min-height: 100vh;
-    background: linear-gradient(180deg, var(--blue-800) 0%, var(--blue-900) 100%);
-    padding: 28px 20px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 100;
-  }
-  .sidebar .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 40px;
-  }
-  .sidebar .brand-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 14px;
-    color: #fff;
-  }
-  .sidebar .brand-text {
-    font-size: 20px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 1.5px;
-  }
+  .sidebar { display: flex; flex-direction: column; width: 260px; min-height: 100vh; background: linear-gradient(180deg, var(--blue-800) 0%, var(--blue-900) 100%); padding: 28px 20px; position: fixed; left: 0; top: 0; z-index: 100; }
+  .sidebar .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+  .sidebar .brand-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; color: #fff; }
+  .sidebar .brand-text { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: 1.5px; }
   .sidebar .brand-text span { color: var(--gold-400); }
-  .sidebar .brand-sub {
-    font-size: 10px;
-    color: rgba(255,255,255,0.55);
-    margin-top: 2px;
-    letter-spacing: 0.5px;
-  }
-  .sidebar-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .sidebar-nav button {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    padding: 12px 16px;
-    border: none;
-    border-radius: var(--radius-md);
-    background: transparent;
-    color: rgba(255,255,255,0.6);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: left;
-  }
-  .sidebar-nav button:hover {
-    background: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.9);
-  }
-  .sidebar-nav button.active {
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-  }
-  .sidebar-nav button .nav-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 800;
-    flex-shrink: 0;
-  }
-  .sidebar-nav button.active .nav-icon {
-    background: rgba(255,255,255,0.15);
-  }
-  .sidebar-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    margin-top: 20px;
-  }
-  .sidebar-user .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--blue-500);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 800;
-    font-size: 14px;
-  }
-  .sidebar-user .uname {
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-  }
-  .sidebar-user .ubranch {
-    font-size: 10px;
-    color: rgba(255,255,255,0.5);
-    margin-top: 1px;
-  }
-  .main-content {
-    margin-left: 260px;
-    flex: 1;
-  }
+  .sidebar .brand-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 2px; letter-spacing: 0.5px; }
+  .sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .sidebar-nav button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 16px; border: none; border-radius: var(--radius-md); background: transparent; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: left; }
+  .sidebar-nav button:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .sidebar-nav button.active { background: rgba(255,255,255,0.12); color: #fff; }
+  .sidebar-nav button .nav-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+  .sidebar-nav button.active .nav-icon { background: rgba(255,255,255,0.15); }
+  .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 20px; }
+  .sidebar-user .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--blue-500); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; }
+  .sidebar-user .uname { font-size: 12px; font-weight: 700; color: #fff; }
+  .sidebar-user .ubranch { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+  .main-content { margin-left: 260px; flex: 1; }
 }
+@media (max-width: 767px) { .main-content { flex: 1; padding-bottom: 72px; } }
 
-@media (max-width: 767px) {
-  .main-content {
-    flex: 1;
-    padding-bottom: 72px;
-  }
-}
-
-/* ===== TOP BAR (Mobile only) ===== */
-.topbar-mobile {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 18px;
-  background: var(--blue-700);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.topbar-mobile .brand-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.topbar-mobile .brand-icon-sm {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 10px;
-  color: #fff;
-}
-.topbar-mobile .brand-label {
-  font-size: 14px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: 1px;
-}
+.topbar-mobile { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: var(--blue-700); position: sticky; top: 0; z-index: 100; }
+.topbar-mobile .brand-row { display: flex; align-items: center; gap: 8px; }
+.topbar-mobile .brand-icon-sm { width: 28px; height: 28px; border-radius: 7px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; color: #fff; }
+.topbar-mobile .brand-label { font-size: 14px; font-weight: 900; color: #fff; letter-spacing: 1px; }
 .topbar-mobile .brand-label span { color: var(--gold-400); }
-.topbar-mobile .status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #34d399;
-  margin-right: 5px;
-  display: inline-block;
-}
-.topbar-mobile .status-text {
-  font-size: 10px;
-  color: rgba(255,255,255,0.8);
-}
-@media (min-width: 768px) {
-  .topbar-mobile { display: none; }
-}
+.topbar-mobile .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; margin-right: 5px; display: inline-block; }
+.topbar-mobile .status-text { font-size: 10px; color: rgba(255,255,255,0.8); }
+@media (min-width: 768px) { .topbar-mobile { display: none; } }
 
-/* ===== BOTTOM NAV (Mobile only) ===== */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--white);
-  border-top: 1px solid var(--gray-200);
-  display: flex;
-  justify-content: center;
-  padding: 6px 0 env(safe-area-inset-bottom, 8px);
-  z-index: 100;
-  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
-}
-.bottom-nav button {
-  flex: 1;
-  max-width: 100px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 4px;
-}
-.bottom-nav .nav-dot {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  transition: all 0.2s;
-  color: var(--gray-400);
-}
-.bottom-nav button.active .nav-dot {
-  background: var(--blue-100);
-  color: var(--blue-600);
-}
-.bottom-nav .nav-label {
-  font-size: 10px;
-  color: var(--gray-400);
-  font-weight: 500;
-}
-.bottom-nav button.active .nav-label {
-  color: var(--blue-600);
-  font-weight: 700;
-}
-@media (min-width: 768px) {
-  .bottom-nav { display: none; }
-}
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--gray-200); display: flex; justify-content: center; padding: 6px 0 env(safe-area-inset-bottom, 8px); z-index: 100; box-shadow: 0 -2px 12px rgba(0,0,0,0.06); }
+.bottom-nav button { flex: 1; max-width: 100px; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 4px; }
+.bottom-nav .nav-dot { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; transition: all 0.2s; color: var(--gray-400); }
+.bottom-nav button.active .nav-dot { background: var(--blue-100); color: var(--blue-600); }
+.bottom-nav .nav-label { font-size: 10px; color: var(--gray-400); font-weight: 500; }
+.bottom-nav button.active .nav-label { color: var(--blue-600); font-weight: 700; }
+@media (min-width: 768px) { .bottom-nav { display: none; } }
 
-/* ===== PAGE CONTAINER ===== */
-.page {
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  animation: fadeUp 0.35s ease;
-}
-@media (min-width: 768px) {
-  .page { padding: 32px 40px; }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+.page { padding: 20px; max-width: 900px; margin: 0 auto; animation: fadeUp 0.35s ease; }
+@media (min-width: 768px) { .page { padding: 32px 40px; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ===== CARD ===== */
-.card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-lg);
-  padding: 18px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow-sm);
-}
-@media (min-width: 768px) {
-  .card { padding: 24px; }
-}
-
-/* ===== SECTION LABEL ===== */
-.section-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--blue-600);
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-/* ===== FORM FIELD ===== */
+.card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+@media (min-width: 768px) { .card { padding: 24px; } }
+.section-label { font-size: 11px; font-weight: 700; color: var(--blue-600); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 14px; }
 .field { margin-bottom: 14px; }
-.field label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gray-500);
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-.field input, .field select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  color: var(--gray-900);
-  background: var(--gray-50);
-  outline: none;
-  transition: border-color 0.2s;
-}
-.field input:focus, .field select:focus {
-  border-color: var(--blue-400);
-  background: var(--white);
-}
+.field label { display: block; font-size: 11px; font-weight: 600; color: var(--gray-500); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+.field input, .field select { width: 100%; padding: 10px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px; color: var(--gray-900); background: var(--gray-50); outline: none; transition: border-color 0.2s; }
+.field input:focus, .field select:focus { border-color: var(--blue-400); background: var(--white); }
+.field input:read-only { background: var(--gray-100); color: var(--gray-500); }
 
-/* ===== BUTTONS ===== */
-.btn-primary {
-  width: 100%;
-  padding: 13px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
-  border: none;
-  color: #fff;
-  font-weight: 800;
-  font-size: 13px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.25s;
-  box-shadow: 0 4px 16px rgba(0,63,136,0.25);
-}
+.btn-primary { width: 100%; padding: 13px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--blue-600), var(--blue-700)); border: none; color: #fff; font-weight: 800; font-size: 13px; cursor: pointer; letter-spacing: 0.5px; transition: all 0.25s; box-shadow: 0 4px 16px rgba(0,63,136,0.25); }
 .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,63,136,0.35); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-.btn-gold {
-  width: 100%;
-  padding: 13px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
-  border: none;
-  color: #fff;
-  font-weight: 800;
-  font-size: 13px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 16px rgba(212,146,10,0.25);
-  transition: all 0.25s;
-}
+.btn-gold { width: 100%; padding: 13px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--gold-400), var(--gold-500)); border: none; color: #fff; font-weight: 800; font-size: 13px; cursor: pointer; letter-spacing: 0.5px; box-shadow: 0 4px 16px rgba(212,146,10,0.25); transition: all 0.25s; }
 .btn-gold:hover { transform: translateY(-1px); }
 
-/* ===== BADGE ===== */
-.badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
 .badge-green { background: var(--green-100); color: var(--green-600); }
 .badge-red { background: var(--red-100); color: var(--red-600); }
 .badge-amber { background: var(--amber-100); color: var(--amber-600); }
 .badge-blue { background: var(--blue-100); color: var(--blue-600); }
 
-/* ===== STAT GRID ===== */
-.stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-@media (min-width: 768px) {
-  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-}
-.stat-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-}
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px;
-  height: 100%;
-  border-radius: 4px 0 0 4px;
-}
-.stat-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (min-width: 768px) { .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+.stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .stat-val { font-size: 28px; font-weight: 900; margin-bottom: 2px; }
 .stat-label { font-size: 11px; color: var(--gray-500); font-weight: 500; }
 
-/* ===== KPI GRID ===== */
-.kpi-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-@media (min-width: 768px) {
-  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
-}
-.kpi-card {
-  background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  padding: 14px;
-}
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (min-width: 768px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+.kpi-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px; }
 .kpi-val { font-size: 14px; font-weight: 800; }
 .kpi-label { font-size: 10px; color: var(--gray-500); margin-top: 3px; }
 
-/* ===== TABS ===== */
-.tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 18px;
-  border-bottom: 2px solid var(--gray-200);
-}
-.tab-btn {
-  padding: 10px 18px;
-  border: none;
-  background: none;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--gray-400);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: all 0.2s;
-}
-.tab-btn.active {
-  color: var(--blue-600);
-  border-bottom-color: var(--blue-600);
-}
+.tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 2px solid var(--gray-200); }
+.tab-btn { padding: 10px 18px; border: none; background: none; font-size: 13px; font-weight: 600; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.tab-btn.active { color: var(--blue-600); border-bottom-color: var(--blue-600); }
 
-/* ===== TRANSACTION ROW ===== */
-.trx-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 6px;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  transition: background 0.15s;
-}
+.trx-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 6px; background: var(--white); border: 1px solid var(--gray-200); transition: background 0.15s; }
 .trx-row:hover { background: var(--gray-50); }
 .trx-row.flag { background: #fef2f2; border-color: #fecaca; }
 .trx-row.angsuran { background: #fffbeb; border-color: #fde68a; }
 .trx-row.self { background: #eff6ff; border-color: #bfdbfe; }
+.trx-row.anomali { background: #fdf4ff; border-color: #e9d5ff; }
+.trx-row.utility { background: #f0fdf4; border-color: #bbf7d0; }
 .trx-desc { font-size: 12px; font-weight: 500; color: var(--gray-700); }
 .trx-date { font-size: 10px; color: var(--gray-400); margin-top: 2px; }
 .trx-amount { font-size: 13px; font-weight: 700; flex-shrink: 0; margin-left: 12px; }
-.trx-tag {
-  display: inline-block;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 4px;
-  margin-right: 6px;
-  vertical-align: middle;
-}
+.trx-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
 
-/* ===== VERIFICATION STEP ===== */
-.step-row {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-bottom: 14px;
-}
-.step-dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 800;
-  flex-shrink: 0;
-  color: #fff;
-  transition: all 0.4s ease;
-}
+.step-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; color: #fff; transition: all 0.4s ease; }
 .step-dot.done { background: var(--green-500); }
 .step-dot.active { background: var(--blue-600); animation: pulse 1.2s infinite; }
 .step-dot.pending { background: var(--gray-300); }
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0,91,170,0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(0,91,170,0); }
-}
+.step-dot.failed { background: var(--red-500); }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,91,170,0.4); } 50% { box-shadow: 0 0 0 8px rgba(0,91,170,0); } }
 .step-text { font-size: 13px; padding-top: 4px; color: var(--gray-500); }
 .step-text.done { color: var(--gray-700); font-weight: 600; }
+.step-text.failed { color: var(--red-600); font-weight: 600; }
 
-/* ===== INSIGHT ROW ===== */
-.insight-row {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--gray-100);
-}
+.insight-row { display: flex; gap: 10px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
 .insight-row:last-child { border-bottom: none; }
-.insight-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 4px;
-}
+.insight-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
 .insight-text { font-size: 13px; font-weight: 500; line-height: 1.5; }
 
-/* ===== UPLOAD SLOT ===== */
-.upload-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-@media (min-width: 768px) {
-  .upload-grid { grid-template-columns: repeat(3, 1fr); }
-}
-.upload-slot {
-  border: 2px dashed var(--gray-300);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
+.upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (min-width: 768px) { .upload-grid { grid-template-columns: repeat(3, 1fr); } }
+.upload-slot { border: 2px dashed var(--gray-300); border-radius: var(--radius-md); padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s; }
 .upload-slot:hover { border-color: var(--blue-400); background: var(--blue-50); }
-.upload-slot.filled {
-  border-style: solid;
-  border-color: var(--green-500);
-  background: var(--green-100);
-}
-.upload-slot .slot-label {
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.upload-slot .slot-info {
-  font-size: 10px;
-  color: var(--gray-500);
-}
+.upload-slot.filled { border-style: solid; border-color: var(--green-500); background: var(--green-100); }
+.upload-slot .slot-label { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.upload-slot .slot-info { font-size: 10px; color: var(--gray-500); }
 .upload-slot.filled .slot-label { color: var(--green-600); }
 .upload-slot.filled .slot-info { color: var(--green-500); }
 
-/* ===== RECENT LIST ===== */
-.recent-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
+.recent-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
 .recent-item:hover { box-shadow: var(--shadow-sm); background: var(--gray-50); }
-.avatar-circle {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 800;
-  font-size: 14px;
-  flex-shrink: 0;
-}
+.avatar-circle { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-600), var(--blue-500)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0; }
 
-/* ===== MODAL ===== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,0.45);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  animation: fadeIn 0.2s;
-}
-@media (min-width: 768px) {
-  .modal-overlay { align-items: center; }
-}
+.modal-overlay { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.45); display: flex; align-items: flex-end; justify-content: center; animation: fadeIn 0.2s; }
+@media (min-width: 768px) { .modal-overlay { align-items: center; } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal-panel {
-  background: var(--white);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  width: 100%;
-  max-width: 520px;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  animation: slideUp 0.3s ease;
-}
-@media (min-width: 768px) {
-  .modal-panel { border-radius: var(--radius-xl); }
-}
+.modal-panel { background: var(--white); border-radius: var(--radius-xl) var(--radius-xl) 0 0; width: 100%; max-width: 520px; max-height: 80vh; display: flex; flex-direction: column; animation: slideUp 0.3s ease; }
+@media (min-width: 768px) { .modal-panel { border-radius: var(--radius-xl); } }
 @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 20px 14px;
-  border-bottom: 1px solid var(--gray-200);
-}
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 14px; border-bottom: 1px solid var(--gray-200); }
 .modal-body { overflow-y: auto; padding: 16px 20px; flex: 1; }
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: var(--gray-400);
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
+.modal-close { background: none; border: none; font-size: 20px; color: var(--gray-400); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
 .modal-close:hover { background: var(--gray-100); }
 
-
-
-/* ===== LOGIN ===== */
-.login-screen {
-  min-height: 100vh;
-  width: 100%;
-  background: linear-gradient(155deg, var(--blue-800) 0%, var(--blue-700) 40%, var(--blue-600) 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-.login-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none;
-}
-.login-glow {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 60%);
-  top: -100px;
-  right: -80px;
-  pointer-events: none;
-}
-.login-container {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 400px;
-  padding: 0 24px;
-}
-.login-brand {
-  text-align: center;
-  margin-bottom: 36px;
-}
-.login-brand-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 10px;
-}
-.login-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.22);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 18px;
-  color: #fff;
-  backdrop-filter: blur(8px);
-}
-.login-title {
-  font-size: 28px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: 2px;
-}
+.login-screen { min-height: 100vh; width: 100%; background: linear-gradient(155deg, var(--blue-800) 0%, var(--blue-700) 40%, var(--blue-600) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.login-grid-overlay { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+.login-glow { position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 60%); top: -100px; right: -80px; pointer-events: none; }
+.login-container { position: relative; z-index: 2; width: 100%; max-width: 400px; padding: 0 24px; }
+.login-brand { text-align: center; margin-bottom: 36px; }
+.login-brand-row { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.login-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; color: #fff; backdrop-filter: blur(8px); }
+.login-title { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: 2px; }
 .login-title span { color: var(--gold-400); }
-.login-subtitle {
-  font-size: 11px;
-  color: rgba(255,255,255,0.55);
-  margin-top: 4px;
-  letter-spacing: 1.5px;
-  font-weight: 600;
-}
-.login-tagline {
-  color: rgba(255,255,255,0.6);
-  font-size: 12px;
-  margin-top: 6px;
-}
-.login-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-xl);
-  padding: 30px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-}
+.login-subtitle { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 4px; letter-spacing: 1.5px; font-weight: 600; }
+.login-tagline { color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 6px; }
+.login-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); padding: 30px; backdrop-filter: blur(16px); box-shadow: 0 8px 40px rgba(0,0,0,0.2); }
 .login-field { margin-bottom: 20px; }
-.login-field label {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 7px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.login-field input {
-  width: 100%;
-  padding: 12px 14px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
+.login-field label { display: block; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 7px; letter-spacing: 1px; text-transform: uppercase; }
+.login-field input { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: #fff; font-size: 14px; outline: none; transition: border-color 0.2s; }
 .login-field input:focus { border-color: rgba(255,255,255,0.45); }
 .login-field input::placeholder { color: rgba(255,255,255,0.3); }
-.login-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
-  border: none;
-  color: #fff;
-  font-weight: 800;
-  font-size: 14px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.3s;
-  box-shadow: 0 4px 24px rgba(0,91,170,0.4);
-  margin-top: 6px;
-}
+.login-btn { width: 100%; padding: 14px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--blue-500), var(--blue-700)); border: none; color: #fff; font-weight: 800; font-size: 14px; cursor: pointer; letter-spacing: 1px; transition: all 0.3s; box-shadow: 0 4px 24px rgba(0,91,170,0.4); margin-top: 6px; }
 .login-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px rgba(0,91,170,0.5); }
-.login-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-.login-footer {
-  text-align: center;
-  margin-top: 24px;
-  font-size: 10px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.5px;
-}
+.login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.login-footer { text-align: center; margin-top: 24px; font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; }
 
-/* ===== VERIFICATION RESULT ===== */
-.verif-result {
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.verif-result.authentic {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-}
-.verif-result.manipulated {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-}
-.verif-result-header {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.verif-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 20px;
-  color: #fff;
-  flex-shrink: 0;
-}
+.verif-result { border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px; }
+.verif-result.authentic { background: #ecfdf5; border: 1px solid #a7f3d0; }
+.verif-result.manipulated { background: #fef2f2; border: 1px solid #fecaca; }
+.verif-result-header { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+.verif-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; color: #fff; flex-shrink: 0; }
 .verif-icon.pass { background: var(--green-500); }
 .verif-icon.fail { background: var(--red-500); }
-.verif-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.verif-cell {
-  background: rgba(255,255,255,0.7);
-  border-radius: var(--radius-sm);
-  padding: 10px;
-}
+.verif-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.verif-cell { background: rgba(255,255,255,0.7); border-radius: var(--radius-sm); padding: 10px; }
 .verif-cell-label { font-size: 10px; color: var(--gray-500); }
 .verif-cell-val { font-size: 12px; font-weight: 700; margin-top: 2px; }
 
-/* ===== RESPONSIVE HELPERS ===== */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (min-width: 768px) {
-  .page-header { font-size: 22px !important; }
-}
+@media (min-width: 768px) { .page-header { font-size: 22px !important; } }
+.angsuran-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-sm); margin-bottom: 6px; }
+.filter-btn { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--gray-300); background: transparent; color: var(--gray-500); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.filter-btn.active { border-color: var(--blue-600); background: var(--blue-100); color: var(--blue-600); }
+.search-box { display: flex; gap: 10px; align-items: stretch; }
+.search-box input { flex: 1; padding: 10px 14px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px; background: var(--gray-50); outline: none; }
+.search-box input:focus { border-color: var(--blue-400); background: var(--white); }
+.search-box button { padding: 10px 20px; border-radius: var(--radius-sm); background: var(--blue-600); color: #fff; border: none; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
 
-/* Angsuran collapsible */
-.angsuran-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  border-radius: var(--radius-sm);
-  margin-bottom: 6px;
-}
-
-/* Filter toggle */
-.filter-btn {
-  padding: 7px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--gray-300);
-  background: transparent;
-  color: var(--gray-500);
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.filter-btn.active {
-  border-color: var(--blue-600);
-  background: var(--blue-100);
-  color: var(--blue-600);
-}
+.analysis-tab-bar { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.analysis-tab-bar button { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--gray-300); background: var(--white); color: var(--gray-500); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.analysis-tab-bar button.active { border-color: var(--blue-600); background: var(--blue-600); color: #fff; }
 </style>
 </head>
 <body>
@@ -922,30 +246,14 @@ input, button, select { font-family: inherit; }
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
 <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react?dev",
-    "react-dom/client": "https://esm.sh/react-dom/client?dev"
-  }
-}
+{ "imports": { "react": "https://esm.sh/react?dev", "react-dom/client": "https://esm.sh/react-dom/client?dev" } }
 </script>
 <script type="text/babel" data-type="module">
-import React, { StrictMode, useState, useEffect, useCallback, createContext, useContext } from 'react';
+import React, { StrictMode, useState, useEffect, createContext, useContext } from 'react';
 import { createRoot } from 'react-dom/client';
 
-/* ================================================================
-   HELPERS
-   ================================================================ */
-function formatRp(val) {
-  return "Rp " + Math.abs(val).toLocaleString("id-ID");
-}
-function randId() {
-  return String(Math.floor(1000000 + Math.random() * 9000000));
-}
+function formatRp(val) { return "Rp " + Math.abs(val).toLocaleString("id-ID"); }
 
-/* ================================================================
-   USER CONTEXT - determines which branch data to show
-   ================================================================ */
 const UserContext = createContext(null);
 
 const TEAM_USERS = [
@@ -955,62 +263,269 @@ const TEAM_USERS = [
 ];
 
 /* ================================================================
-   KONSUMEN DATABASE - each konsumen has full analysis data
+   FIXED KONSUMEN DATABASE - 8 scenarios, random 7-digit IDs
    ================================================================ */
-function buildKonsumenDB(branchList) {
-  const ALL_KONSUMEN = [
-    { id: "K01", name: "Budi Santoso", prod: "CS Mobil", ph: 285, cabang: "Direct Sales Batam", status: "done", cmo: "Susi Susanti", bank: "BCA", nik: "3271012345678901", months: 3, income: 12500000, employer: "PT Sumber Makmur", dsr: 48, pinjol: 2, risk: "high", score: 70 },
-    { id: "K02", name: "Sri Wahyuni", prod: "KKB", ph: 195, cabang: "Direct Sales Batam", status: "done", cmo: "Agus Prabowo", bank: "BCA", nik: "3271014567890123", months: 3, income: 8500000, employer: "PT Mandiri Jaya", dsr: 32, pinjol: 0, risk: "low", score: 82 },
-    { id: "K03", name: "Ahmad Fauzi", prod: "DS", ph: 150, cabang: "Direct Sales Pontianak", status: "done", cmo: "Rina Kartika", bank: "Mandiri", nik: "6171023456789012", months: 3, income: 7200000, employer: "CV Cahaya Abadi", dsr: 35, pinjol: 0, risk: "low", score: 79 },
-    { id: "K04", name: "Dewi Lestari", prod: "CS Mobil", ph: 320, cabang: "Direct Sales Batam", status: "review", cmo: "Susi Susanti", bank: "BCA", nik: "3271015678901234", months: 2, income: 15000000, employer: "PT Global Teknik", dsr: 28, pinjol: 0, risk: "low", score: 85 },
-    { id: "K05", name: "Rino Prasetyo", prod: "KKB", ph: 210, cabang: "Direct Sales Pontianak", status: "done", cmo: "Doni Hermawan", bank: "BNI", nik: "6171024567890123", months: 3, income: 9800000, employer: "PT Kalimantan Energi", dsr: 38, pinjol: 0, risk: "low", score: 77 },
-    { id: "K06", name: "Maya Sari", prod: "DS", ph: 165, cabang: "Direct Sales Batam", status: "done", cmo: "Agus Prabowo", bank: "BCA", nik: "3271016789012345", months: 3, income: 6500000, employer: "Toko Sejahtera", dsr: 25, pinjol: 0, risk: "low", score: 88 },
-    { id: "K07", name: "Hendra Wijaya", prod: "KKB", ph: 290, cabang: "WTC Mobil Bekas I", status: "done", cmo: "Benny Tan", bank: "BCA", nik: "3271017890123456", months: 3, income: 14000000, employer: "PT Maju Bersama", dsr: 42, pinjol: 1, risk: "high", score: 68 },
-    { id: "K08", name: "Lilis Suryani", prod: "KKB", ph: 180, cabang: "WTC Mobil Bekas I", status: "done", cmo: "Benny Tan", bank: "Mandiri", nik: "3271018901234567", months: 3, income: 7800000, employer: "PT Sentosa Abadi", dsr: 30, pinjol: 0, risk: "low", score: 81 },
-    { id: "K09", name: "Andi Kurniawan", prod: "DS", ph: 140, cabang: "WTC Mobil Bekas I", status: "done", cmo: "Irene Lim", bank: "BCA", nik: "3271019012345678", months: 3, income: 6200000, employer: "CV Karya Mandiri", dsr: 22, pinjol: 0, risk: "low", score: 90 },
-    { id: "K10", name: "Tuti Rahayu", prod: "DS", ph: 310, cabang: "WTC Mobil Bekas I", status: "review", cmo: "Irene Lim", bank: "BNI", nik: "3271010123456789", months: 2, income: 11500000, employer: "PT Harapan Utama", dsr: 45, pinjol: 0, risk: "high", score: 65 },
-    { id: "K11", name: "Bambang Irawan", prod: "KKB", ph: 225, cabang: "KKB Medan", status: "done", cmo: "Rizky Harahap", bank: "BCA", nik: "1271011234567890", months: 3, income: 10200000, employer: "PT Sumatera Jaya", dsr: 34, pinjol: 0, risk: "low", score: 80 },
-    { id: "K12", name: "Ratna Dewi", prod: "DS", ph: 155, cabang: "KKB Medan", status: "done", cmo: "Yanti Siregar", bank: "Mandiri", nik: "1271012345678901", months: 3, income: 6800000, employer: "CV Medan Makmur", dsr: 28, pinjol: 0, risk: "low", score: 84 },
-    { id: "K13", name: "Feri Santoso", prod: "KKB", ph: 275, cabang: "KKB Medan", status: "done", cmo: "Rizky Harahap", bank: "BCA", nik: "1271013456789012", months: 3, income: 13000000, employer: "PT Andalas Perkasa", dsr: 36, pinjol: 0, risk: "low", score: 78 },
-    { id: "K14", name: "Siti Aminah", prod: "KKB", ph: 200, cabang: "KKB Medan", status: "review", cmo: "Yanti Siregar", bank: "BRI", nik: "1271014567890123", months: 2, income: 8000000, employer: "PT Nusantara Sejati", dsr: 50, pinjol: 1, risk: "high", score: 62 },
-    { id: "K15", name: "Yusuf Rahman", prod: "DS", ph: 170, cabang: "Direct Sales Batam", status: "done", cmo: "Rina Kartika", bank: "BCA", nik: "3271020123456789", months: 3, income: 7500000, employer: "UD Pelita Jaya", dsr: 20, pinjol: 0, risk: "low", score: 91 },
-    { id: "K16", name: "Nurul Hidayah", prod: "DS", ph: 250, cabang: "Direct Sales Pontianak", status: "done", cmo: "Doni Hermawan", bank: "BCA", nik: "6171025678901234", months: 3, income: 11000000, employer: "PT Borneo Sejahtera", dsr: 30, pinjol: 0, risk: "low", score: 83 },
-    { id: "K17", name: "Wahyu Pratama", prod: "KKB", ph: 190, cabang: "WTC Mobil Bekas I", status: "done", cmo: "Benny Tan", bank: "BCA", nik: "3271021234567890", months: 3, income: 9000000, employer: "PT Jaya Motor", dsr: 33, pinjol: 0, risk: "low", score: 79 },
-    { id: "K18", name: "Eko Susanto", prod: "DS", ph: 145, cabang: "KKB Medan", status: "done", cmo: "Rizky Harahap", bank: "Mandiri", nik: "1271015678901234", months: 3, income: 6000000, employer: "Toko Berkah", dsr: 18, pinjol: 0, risk: "low", score: 92 },
-  ];
+const ALL_KONSUMEN = [
+  { id: "K01", appId: "4821937", mid: "7103582", name: "Budi Santoso", pasangan: "Siti Nurhaliza", prod: "KKB", ph: 285, cabang: "Direct Sales Batam", status: "done", cmo: "Susi Susanti", bank: "BCA", noRek: "1234567890", namaRek: "BUDI SANTOSO", nik: "2171012345678901", months: 3, profesi: "karyawan", employer: "PT Sumber Makmur", jabatan: "Manager Operasional", income: 15000000, scenario: "karyawan_gaji" },
+  { id: "K02", appId: "5739204", mid: "8294016", name: "Sri Wahyuni", pasangan: "Agus Prabowo", prod: "KKB", ph: 195, cabang: "Direct Sales Batam", status: "done", cmo: "Agus Prabowo", bank: "BCA", noRek: "2345678901", namaRek: "SRI WAHYUNI", nik: "2171014567890123", months: 3, profesi: "karyawan", employer: "PT Mandiri Jaya", jabatan: "Staff Accounting", income: 8500000, scenario: "pinjol_kpr" },
+  { id: "K03", appId: "6482019", mid: "3917405", name: "Ahmad Fauzi", pasangan: "Rina Kartika", prod: "DS", ph: 150, cabang: "Direct Sales Pontianak", status: "done", cmo: "Rina Kartika", bank: "Mandiri", noRek: "3456789012", namaRek: "AHMAD FAUZI", nik: "6171023456789012", months: 3, profesi: "karyawan", employer: "CV Cahaya Abadi", jabatan: "Supervisor", income: 7200000, scenario: "window_dressing" },
+  { id: "K04", appId: "3150847", mid: "6028193", name: "Dewi Lestari", pasangan: "Hendra Wijaya", prod: "CS Mobil", ph: 320, cabang: "Direct Sales Batam", status: "done", cmo: "Susi Susanti", bank: "BCA", noRek: "4567890123", namaRek: "DEWI LESTARI", nik: "2171015678901234", months: 3, profesi: "wiraswasta", employer: "UD Berkah Sejahtera", jabatan: "Pemilik", namaUsaha: "UD Berkah Sejahtera", bidangUsaha: "Distributor Bahan Bangunan", suppliers: ["PT SEMEN PADANG", "PT HOLCIM INDONESIA", "TOKO BESI MAKMUR"], clients: ["CV BANGUN JAYA", "PT KONSTRUKSI MANDIRI", "UD TOKO BANGUNAN ABADI"], income: 25000000, scenario: "wiraswasta" },
+  { id: "K05", appId: "9274136", mid: "1485920", name: "Rino Prasetyo", pasangan: "Maya Sari", prod: "KKB", ph: 210, cabang: "Direct Sales Pontianak", status: "done", cmo: "Doni Hermawan", bank: "BNI", noRek: "5678901234", namaRek: "RINO PRASETYO", nik: "6171024567890123", months: 3, profesi: "karyawan", employer: "PT Kalimantan Energi", jabatan: "Staff Teknik", income: 9800000, scenario: "over_leverage" },
+  { id: "K06", appId: "8361045", mid: "2759381", name: "Hendra Wijaya", pasangan: "Lilis Suryani", prod: "KKB", ph: 290, cabang: "WTC Mobil Bekas I", status: "pending", cmo: "Benny Tan", bank: "BCA", noRek: "6789012345", namaRek: "HENDRA WIJAYA", nik: "3271017890123456", months: 3, profesi: "karyawan", employer: "PT Maju Bersama", jabatan: "Supervisor Gudang", income: 14000000, scenario: "wrong_account", wrongRekName: "BAMBANG SUSILO" },
+  { id: "K07", appId: "1047293", mid: "5830417", name: "Bambang Irawan", pasangan: "Ratna Dewi", prod: "KKB", ph: 225, cabang: "KKB Medan", status: "done", cmo: "Rizky Harahap", bank: "BCA", noRek: "7890123456", namaRek: "BAMBANG IRAWAN", nik: "1271011234567890", months: 3, profesi: "karyawan", employer: "PT Sumatera Jaya", jabatan: "Manager HRD", income: 10200000, scenario: "listrik_utility" },
+  { id: "K08", appId: "7592840", mid: "4016738", name: "Siti Aminah", pasangan: "Feri Santoso", prod: "KKB", ph: 200, cabang: "KKB Medan", status: "done", cmo: "Yanti Siregar", bank: "BRI", noRek: "8901234567", namaRek: "SITI AMINAH", nik: "1271014567890123", months: 3, profesi: "karyawan", employer: "PT Nusantara Sejati", jabatan: "Staff Admin", income: 8000000, scenario: "atas_nama" },
+];
 
+function buildKonsumenDB(branchList) {
   return ALL_KONSUMEN.filter(k => branchList.includes(k.cabang));
 }
 
-/* Transaction template for analysis view */
+/* ================================================================
+   TRANSACTION GENERATOR
+   ================================================================ */
 function getTrxForKonsumen(k) {
+  if (!k) return [];
   const inc = k.income;
-  return [
-    { date: "2025-01-03", desc: "TRANSFER MASUK - " + k.employer.toUpperCase(), amount: inc },
-    { date: "2025-01-05", desc: "AUTODEBET CICILAN KPR BANK BCA", amount: -3200000, angsuran: true },
-    { date: "2025-01-07", desc: "BELANJA SUPERMARKET", amount: -450000 },
-    { date: "2025-01-10", desc: "TRANSFER KELUAR - BPJS KESEHATAN", amount: -150000 },
-    { date: "2025-01-12", desc: "SELF TRANSFER - KE REK TABUNGAN", amount: -5000000, selfTransfer: true },
-    { date: "2025-01-12", desc: "SELF TRANSFER - DARI REK TABUNGAN", amount: 5000000, selfTransfer: true },
-    { date: "2025-01-15", desc: "GAJI BULANAN - " + k.employer.toUpperCase(), amount: inc },
-    { date: "2025-01-17", desc: "TARIK TUNAI ATM", amount: -1000000 },
-    { date: "2025-01-20", desc: "TRANSFER MASUK - BONUS", amount: Math.round(inc * 0.4) },
-    { date: "2025-01-22", desc: "PEMBAYARAN KARTU KREDIT BCA", amount: -2100000 },
-    { date: "2025-02-01", desc: "AUTODEBET ANGSURAN KENDARAAN OTO", amount: -2800000, angsuran: true },
-    { date: "2025-02-03", desc: "TRANSFER MASUK - DIVIDEN", amount: 800000 },
-    { date: "2025-02-15", desc: "GAJI BULANAN - " + k.employer.toUpperCase(), amount: inc },
-    ...(k.pinjol > 0 ? [
-      { date: "2025-02-18", desc: "PINJOL DANACEPAT - PEMBAYARAN", amount: -500000, flag: true },
-      { date: "2025-02-20", desc: "TRANSFER MASUK - PINJOL DANACEPAT", amount: 3000000, flag: true },
-    ] : []),
-    { date: "2025-02-23", desc: "UTILITIES PLN + PDAM", amount: -320000 },
-    { date: "2025-03-01", desc: "AUTODEBET CICILAN KPR BANK BCA", amount: -3200000, angsuran: true },
-    { date: "2025-03-15", desc: "GAJI BULANAN - " + k.employer.toUpperCase(), amount: inc },
-  ];
+  const emp = (k.employer || "PT UNKNOWN").toUpperCase();
+  const baseTrx = [];
+
+  if (k.scenario === "karyawan_gaji") {
+    baseTrx.push(
+      { date: "2025-01-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-01-18", desc: "DB BELANJA SUPERINDO", amount: -650000 },
+      { date: "2025-01-20", desc: "DB AUTODEBET PLN ID PEL 541234567890", amount: -485000, utility: "listrik" },
+      { date: "2025-01-22", desc: "DB PEMBAYARAN PDAM ID PEL 12345678", amount: -125000, utility: "pdam" },
+      { date: "2025-01-25", desc: "DB PULSA TELKOMSEL", amount: -100000, utility: "pulsa" },
+      { date: "2025-01-28", desc: "DB TARIK TUNAI ATM", amount: -2000000 },
+      { date: "2025-02-05", desc: "DB AUTODEBET ANGSURAN KPR BANK BCA", amount: -3200000, angsuran: true, angsuranLabel: "KPR Bank BCA" },
+      { date: "2025-02-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-02-18", desc: "DB BELANJA TOKOPEDIA", amount: -450000 },
+      { date: "2025-02-20", desc: "DB AUTODEBET PLN ID PEL 541234567890", amount: -510000, utility: "listrik" },
+      { date: "2025-02-22", desc: "DB PEMBAYARAN PDAM ID PEL 12345678", amount: -125000, utility: "pdam" },
+      { date: "2025-02-25", desc: "DB PULSA TELKOMSEL", amount: -100000, utility: "pulsa" },
+      { date: "2025-03-05", desc: "DB AUTODEBET ANGSURAN KPR BANK BCA", amount: -3200000, angsuran: true, angsuranLabel: "KPR Bank BCA" },
+      { date: "2025-03-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-03-18", desc: "DB TRANSFER KE ISTRI", amount: -3000000 },
+      { date: "2025-03-20", desc: "DB AUTODEBET PLN ID PEL 541234567890", amount: -495000, utility: "listrik" },
+      { date: "2025-03-22", desc: "DB PEMBAYARAN PDAM ID PEL 12345678", amount: -130000, utility: "pdam" },
+    );
+  } else if (k.scenario === "pinjol_kpr") {
+    baseTrx.push(
+      { date: "2025-01-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-01-17", desc: "DB AUTODEBET ANGSURAN KPR BANK BCA", amount: -2800000, angsuran: true, angsuranLabel: "KPR Bank BCA" },
+      { date: "2025-01-20", desc: "DB AUTODEBET PLN ID PEL 987654321012", amount: -350000, utility: "listrik" },
+      { date: "2025-01-22", desc: "DB PEMBAYARAN PINJOL - DANACEPAT", amount: -750000, flag: true },
+      { date: "2025-01-25", desc: "CR TRANSFER MASUK - DANACEPAT", amount: 5000000, flag: true },
+      { date: "2025-01-28", desc: "DB TARIK TUNAI ATM", amount: -1500000 },
+      { date: "2025-02-05", desc: "DB PEMBAYARAN KARTU KREDIT BCA", amount: -1200000, angsuran: true, angsuranLabel: "Kartu Kredit BCA" },
+      { date: "2025-02-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-02-17", desc: "DB AUTODEBET ANGSURAN KPR BANK BCA", amount: -2800000, angsuran: true, angsuranLabel: "KPR Bank BCA" },
+      { date: "2025-02-20", desc: "DB AUTODEBET PLN ID PEL 987654321012", amount: -380000, utility: "listrik" },
+      { date: "2025-02-22", desc: "DB PEMBAYARAN PINJOL - DANACEPAT", amount: -750000, flag: true },
+      { date: "2025-03-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-03-17", desc: "DB AUTODEBET ANGSURAN KPR BANK BCA", amount: -2800000, angsuran: true, angsuranLabel: "KPR Bank BCA" },
+      { date: "2025-03-20", desc: "DB AUTODEBET PLN ID PEL 987654321012", amount: -365000, utility: "listrik" },
+      { date: "2025-03-22", desc: "DB PEMBAYARAN PINJOL - DANACEPAT", amount: -750000, flag: true },
+    );
+  } else if (k.scenario === "window_dressing") {
+    baseTrx.push(
+      { date: "2025-01-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-01-28", desc: "CR SELF TRANSFER - DARI REK TABUNGAN AN. AHMAD FAUZI", amount: 15000000, selfTransfer: true },
+      { date: "2025-01-29", desc: "DB SELF TRANSFER - KE REK TABUNGAN AN. AHMAD FAUZI", amount: -15000000, selfTransfer: true },
+      { date: "2025-01-30", desc: "CR SELF TRANSFER - DARI REK ISTRI AN. RINA KARTIKA", amount: 10000000, selfTransfer: true },
+      { date: "2025-01-31", desc: "DB SELF TRANSFER - KE REK ISTRI AN. RINA KARTIKA", amount: -10000000, selfTransfer: true },
+      { date: "2025-02-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-02-27", desc: "CR SELF TRANSFER - DARI REK TABUNGAN AN. AHMAD FAUZI", amount: 20000000, selfTransfer: true },
+      { date: "2025-02-28", desc: "DB SELF TRANSFER - KE REK TABUNGAN AN. AHMAD FAUZI", amount: -20000000, selfTransfer: true },
+      { date: "2025-03-01", desc: "DB TARIK TUNAI ATM", amount: -1000000 },
+      { date: "2025-03-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-03-28", desc: "CR SELF TRANSFER - DARI REK TABUNGAN AN. AHMAD FAUZI", amount: 18000000, selfTransfer: true },
+      { date: "2025-03-29", desc: "DB SELF TRANSFER - KE REK TABUNGAN AN. AHMAD FAUZI", amount: -18000000, selfTransfer: true },
+      { date: "2025-03-30", desc: "DB BELANJA INDOMARET", amount: -250000 },
+    );
+  } else if (k.scenario === "wiraswasta") {
+    baseTrx.push(
+      { date: "2025-01-05", desc: "CR TRANSFER MASUK - CV BANGUN JAYA (Pembayaran Invoice)", amount: 12000000, category: "usaha" },
+      { date: "2025-01-10", desc: "DB TRANSFER KELUAR - PT SEMEN PADANG (Pembelian Material)", amount: -8000000, category: "usaha" },
+      { date: "2025-01-15", desc: "CR TRANSFER MASUK - PT KONSTRUKSI MANDIRI (DP Proyek)", amount: 18000000, category: "usaha" },
+      { date: "2025-01-18", desc: "DB TRANSFER KELUAR - PT HOLCIM INDONESIA (Pembelian Semen)", amount: -6500000, category: "usaha" },
+      { date: "2025-01-20", desc: "DB AUTODEBET PLN ID PEL 111222333444", amount: -780000, utility: "listrik" },
+      { date: "2025-01-25", desc: "CR TRANSFER MASUK - UD TOKO BANGUNAN ABADI (Pelunasan)", amount: 8500000, category: "usaha" },
+      { date: "2025-01-28", desc: "DB BELANJA OPERASIONAL TOKO", amount: -2500000 },
+      { date: "2025-02-05", desc: "CR TRANSFER MASUK - CV BANGUN JAYA (Pelunasan)", amount: 15000000, category: "usaha" },
+      { date: "2025-02-10", desc: "DB TRANSFER KELUAR - TOKO BESI MAKMUR (Pembelian Besi)", amount: -9000000, category: "usaha" },
+      { date: "2025-02-15", desc: "CR TRANSFER MASUK - PT KONSTRUKSI MANDIRI (Pelunasan)", amount: 22000000, category: "usaha" },
+      { date: "2025-02-20", desc: "DB AUTODEBET PLN ID PEL 111222333444", amount: -815000, utility: "listrik" },
+      { date: "2025-02-25", desc: "DB PEMBAYARAN PDAM ID PEL 55667788", amount: -180000, utility: "pdam" },
+      { date: "2025-03-05", desc: "CR TRANSFER MASUK - UD TOKO BANGUNAN ABADI (Pembelian Baru)", amount: 10000000, category: "usaha" },
+      { date: "2025-03-12", desc: "DB TRANSFER KELUAR - PT SEMEN PADANG (Pembelian Material)", amount: -7500000, category: "usaha" },
+      { date: "2025-03-15", desc: "CR TRANSFER MASUK - CV BANGUN JAYA (Invoice Maret)", amount: 14000000, category: "usaha" },
+      { date: "2025-03-20", desc: "DB AUTODEBET PLN ID PEL 111222333444", amount: -790000, utility: "listrik" },
+      { date: "2025-03-28", desc: "DB TARIK TUNAI OPERASIONAL", amount: -3000000 },
+    );
+  } else if (k.scenario === "over_leverage") {
+    baseTrx.push(
+      { date: "2025-01-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-01-17", desc: "DB AUTODEBET ANGSURAN KPR BANK MANDIRI", amount: -3500000, angsuran: true, angsuranLabel: "KPR Bank Mandiri" },
+      { date: "2025-01-18", desc: "DB AUTODEBET ANGSURAN KENDARAAN OTO FINANCE", amount: -2800000, angsuran: true, angsuranLabel: "Kendaraan OTO Finance" },
+      { date: "2025-01-20", desc: "DB ANGSURAN KARTU KREDIT BNI", amount: -1500000, angsuran: true, angsuranLabel: "Kartu Kredit BNI" },
+      { date: "2025-01-22", desc: "DB ANGSURAN KREDIVO", amount: -800000, angsuran: true, angsuranLabel: "Kredivo" },
+      { date: "2025-01-25", desc: "DB AUTODEBET PLN ID PEL 333444555666", amount: -420000, utility: "listrik" },
+      { date: "2025-02-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-02-17", desc: "DB AUTODEBET ANGSURAN KPR BANK MANDIRI", amount: -3500000, angsuran: true, angsuranLabel: "KPR Bank Mandiri" },
+      { date: "2025-02-18", desc: "DB AUTODEBET ANGSURAN KENDARAAN OTO FINANCE", amount: -2800000, angsuran: true, angsuranLabel: "Kendaraan OTO Finance" },
+      { date: "2025-02-20", desc: "DB ANGSURAN KARTU KREDIT BNI", amount: -1500000, angsuran: true, angsuranLabel: "Kartu Kredit BNI" },
+      { date: "2025-02-22", desc: "DB ANGSURAN KREDIVO", amount: -800000, angsuran: true, angsuranLabel: "Kredivo" },
+      { date: "2025-02-25", desc: "DB AUTODEBET PLN ID PEL 333444555666", amount: -450000, utility: "listrik" },
+      { date: "2025-03-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-03-17", desc: "DB AUTODEBET ANGSURAN KPR BANK MANDIRI", amount: -3500000, angsuran: true, angsuranLabel: "KPR Bank Mandiri" },
+      { date: "2025-03-18", desc: "DB AUTODEBET ANGSURAN KENDARAAN OTO FINANCE", amount: -2800000, angsuran: true, angsuranLabel: "Kendaraan OTO Finance" },
+      { date: "2025-03-20", desc: "DB ANGSURAN KARTU KREDIT BNI", amount: -1500000, angsuran: true, angsuranLabel: "Kartu Kredit BNI" },
+      { date: "2025-03-22", desc: "DB ANGSURAN KREDIVO", amount: -800000, angsuran: true, angsuranLabel: "Kredivo" },
+      { date: "2025-03-25", desc: "CR TRANSFER MASUK TIDAK DIKETAHUI", amount: 15000000, anomali: true },
+    );
+  } else if (k.scenario === "listrik_utility") {
+    baseTrx.push(
+      { date: "2025-01-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-01-17", desc: "DB AUTODEBET ANGSURAN KENDARAAN ADIRA", amount: -2500000, angsuran: true, angsuranLabel: "Kendaraan Adira" },
+      { date: "2025-01-20", desc: "DB AUTODEBET PLN ID PEL 777888999000", amount: -1250000, utility: "listrik" },
+      { date: "2025-01-21", desc: "DB PEMBAYARAN PDAM ID PEL 44556677", amount: -185000, utility: "pdam" },
+      { date: "2025-01-22", desc: "DB PULSA INDOSAT", amount: -150000, utility: "pulsa" },
+      { date: "2025-01-25", desc: "DB BELANJA SUPERMARKET", amount: -850000 },
+      { date: "2025-01-28", desc: "DB TARIK TUNAI ATM", amount: -1500000 },
+      { date: "2025-02-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-02-17", desc: "DB AUTODEBET ANGSURAN KENDARAAN ADIRA", amount: -2500000, angsuran: true, angsuranLabel: "Kendaraan Adira" },
+      { date: "2025-02-20", desc: "DB AUTODEBET PLN ID PEL 777888999000", amount: -1180000, utility: "listrik" },
+      { date: "2025-02-21", desc: "DB PEMBAYARAN PDAM ID PEL 44556677", amount: -185000, utility: "pdam" },
+      { date: "2025-02-22", desc: "DB PULSA INDOSAT", amount: -150000, utility: "pulsa" },
+      { date: "2025-02-28", desc: "CR BONUS TAHUNAN - " + emp, amount: 5000000 },
+      { date: "2025-03-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-03-17", desc: "DB AUTODEBET ANGSURAN KENDARAAN ADIRA", amount: -2500000, angsuran: true, angsuranLabel: "Kendaraan Adira" },
+      { date: "2025-03-20", desc: "DB AUTODEBET PLN ID PEL 777888999000", amount: -1310000, utility: "listrik" },
+      { date: "2025-03-21", desc: "DB PEMBAYARAN PDAM ID PEL 44556677", amount: -190000, utility: "pdam" },
+      { date: "2025-03-22", desc: "DB PULSA INDOSAT", amount: -150000, utility: "pulsa" },
+    );
+  } else if (k.scenario === "atas_nama") {
+    const angsuranBCAF = 4500000;
+    baseTrx.push(
+      { date: "2025-01-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-01-17", desc: "CR TRANSFER MASUK - DARMAWAN SUSILO", amount: 4500000, atasNama: true },
+      { date: "2025-01-20", desc: "DB AUTODEBET ANGSURAN PT BCA FINANCE", amount: -angsuranBCAF, angsuran: true, angsuranLabel: "PT BCA Finance", isBCAF: true },
+      { date: "2025-01-22", desc: "DB AUTODEBET PLN ID PEL 222333444555", amount: -380000, utility: "listrik" },
+      { date: "2025-01-25", desc: "DB BELANJA SHOPEE", amount: -350000 },
+      { date: "2025-02-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-02-17", desc: "CR TRANSFER MASUK - DARMAWAN SUSILO", amount: 4500000, atasNama: true },
+      { date: "2025-02-20", desc: "DB AUTODEBET ANGSURAN PT BCA FINANCE", amount: -angsuranBCAF, angsuran: true, angsuranLabel: "PT BCA Finance", isBCAF: true },
+      { date: "2025-02-22", desc: "DB AUTODEBET PLN ID PEL 222333444555", amount: -395000, utility: "listrik" },
+      { date: "2025-02-25", desc: "DB TARIK TUNAI ATM", amount: -1000000 },
+      { date: "2025-03-15", desc: "CR GAJI BULANAN - " + emp, amount: inc, category: "gaji" },
+      { date: "2025-03-17", desc: "CR TRANSFER MASUK - DARMAWAN SUSILO", amount: 5000000, atasNama: true },
+      { date: "2025-03-20", desc: "DB AUTODEBET ANGSURAN PT BCA FINANCE", amount: -angsuranBCAF, angsuran: true, angsuranLabel: "PT BCA Finance", isBCAF: true },
+      { date: "2025-03-22", desc: "DB AUTODEBET PLN ID PEL 222333444555", amount: -410000, utility: "listrik" },
+    );
+  }
+  return baseTrx;
 }
 
 /* ================================================================
-   STAT MODAL - now with clickable konsumen rows
+   ANALYSIS HELPERS
+   ================================================================ */
+function computeAnalysis(k) {
+  if (!k) return {};
+  const trx = getTrxForKonsumen(k);
+  const cleanTrx = trx.filter(t => !t.selfTransfer);
+  const totalKredit = cleanTrx.filter(t => t.amount > 0).reduce((a, b) => a + b.amount, 0);
+  const totalDebit = cleanTrx.filter(t => t.amount < 0).reduce((a, b) => a + Math.abs(b.amount), 0);
+  const avgKredit = Math.round(totalKredit / k.months);
+  const avgIncome = k.income;
+  const months = ["2025-01", "2025-02", "2025-03"];
+  const monthlySurplus = months.map(m => {
+    const mTrx = cleanTrx.filter(t => t.date.startsWith(m));
+    const cr = mTrx.filter(t => t.amount > 0).reduce((a, b) => a + b.amount, 0);
+    const db = mTrx.filter(t => t.amount < 0).reduce((a, b) => a + Math.abs(b.amount), 0);
+    return cr - db;
+  });
+  const positiveSurplusCount = monthlySurplus.filter(s => s > 0).length;
+  const maxSurplus = Math.max(...monthlySurplus);
+  const minSurplus = Math.min(...monthlySurplus);
+  const surplusStable = maxSurplus > 0 && minSurplus > 0 ? (minSurplus / maxSurplus) > 0.4 : monthlySurplus.every(s => s <= 0) ? true : false;
+  const angsuranTrx = trx.filter(t => t.angsuran);
+  const uniqueAngsuran = {};
+  angsuranTrx.forEach(t => { const lbl = t.angsuranLabel || t.desc; if (!uniqueAngsuran[lbl]) uniqueAngsuran[lbl] = []; uniqueAngsuran[lbl].push(Math.abs(t.amount)); });
+  const angsuranPerMonth = Object.entries(uniqueAngsuran).map(([label, amounts]) => ({ label, perMonth: Math.round(amounts.reduce((a,b)=>a+b,0) / k.months) }));
+  const totalAngsuranPerMonth = angsuranPerMonth.reduce((a,b) => a + b.perMonth, 0);
+  const dsr = avgIncome > 0 ? Math.round((totalAngsuranPerMonth / avgIncome) * 100) : 0;
+  const utilityTrx = trx.filter(t => t.utility);
+  const utilityByType = {};
+  utilityTrx.forEach(t => { if (!utilityByType[t.utility]) utilityByType[t.utility] = []; utilityByType[t.utility].push(Math.abs(t.amount)); });
+  const utilityAvg = Object.entries(utilityByType).map(([type, amounts]) => ({
+    type, avgPerMonth: Math.round(amounts.reduce((a,b)=>a+b,0) / k.months),
+    idPelanggan: type === "listrik" ? (trx.find(t => t.utility === "listrik")?.desc.match(/ID PEL (\d+)/)?.[1] || "-") : type === "pdam" ? (trx.find(t => t.utility === "pdam")?.desc.match(/ID PEL (\d+)/)?.[1] || "-") : "-",
+  }));
+  const anomaliTrx = trx.filter(t => t.anomali);
+  const pinjolTrx = trx.filter(t => t.flag);
+  const pinjolCount = pinjolTrx.length;
+  const selfTransferTrx = trx.filter(t => t.selfTransfer);
+  const totalSelfTransfer = selfTransferTrx.filter(t => t.amount > 0).reduce((a,b) => a + b.amount, 0);
+  const atasNamaTrx = trx.filter(t => t.atasNama);
+  const usahaTrx = trx.filter(t => t.category === "usaha");
+  const usahaIncome = usahaTrx.filter(t => t.amount > 0).reduce((a,b) => a + b.amount, 0);
+  return { trx, cleanTrx, totalKredit, totalDebit, avgKredit, avgIncome, monthlySurplus, positiveSurplusCount, surplusStable, maxSurplus, minSurplus, angsuranPerMonth, totalAngsuranPerMonth, dsr, utilityAvg, anomaliTrx, pinjolTrx, pinjolCount, selfTransferTrx, totalSelfTransfer, atasNamaTrx, usahaTrx, usahaIncome };
+}
+
+function buildInsights(k, analysis) {
+  const insights = [];
+  if (!k || !analysis.trx) return insights;
+  if (k.profesi === "karyawan") {
+    insights.push({ color: "var(--green-500)", text: "Gaji tetap " + formatRp(k.income) + "/bulan dari " + k.employer + " terdeteksi melalui keyword GAJI dan nama perusahaan - " + k.months + " bulan konsisten." });
+  } else if (k.profesi === "wiraswasta") {
+    insights.push({ color: "var(--green-500)", text: "Profesi wiraswasta (" + k.bidangUsaha + "). Transaksi usaha diidentifikasi dari data supplier/klien ONE ME: " + (k.suppliers||[]).join(", ") + ". Rata-rata omset masuk " + formatRp(analysis.usahaIncome / k.months) + "/bulan." });
+  }
+  if (analysis.positiveSurplusCount >= 2) {
+    insights.push({ color: "var(--green-500)", text: "Cashflow positif - surplus positif " + analysis.positiveSurplusCount + " dari " + k.months + " bulan. Surplus per bulan: " + analysis.monthlySurplus.map((s,i) => "Bln " + (i+1) + ": " + (s >= 0 ? "+" : "") + formatRp(s)).join(", ") + "." });
+  } else {
+    insights.push({ color: "var(--red-500)", text: "Cashflow negatif - hanya " + analysis.positiveSurplusCount + " dari " + k.months + " bulan surplus positif. Surplus per bulan: " + analysis.monthlySurplus.map((s,i) => "Bln " + (i+1) + ": " + (s >= 0 ? "+" : "") + formatRp(s)).join(", ") + "." });
+  }
+  if (!analysis.surplusStable) {
+    insights.push({ color: "var(--amber-500)", text: "Stabilitas surplus tidak konsisten. Variasi signifikan: surplus tertinggi " + formatRp(analysis.maxSurplus) + " vs terendah " + formatRp(analysis.minSurplus) + ". Perlu diperhatikan kemampuan bayar jangka panjang." });
+  } else if (analysis.positiveSurplusCount >= 2) {
+    insights.push({ color: "var(--green-500)", text: "Stabilitas surplus konsisten antar bulan - variasi dalam batas wajar." });
+  }
+  if (k.scenario === "window_dressing") {
+    insights.push({ color: "var(--red-500)", text: "Indikasi Window Dressing: self-transfer besar (total " + formatRp(analysis.totalSelfTransfer) + ") masuk dan keluar berdekatan di akhir bulan. Difilter dari kalkulasi income." });
+  } else if (analysis.selfTransferTrx.length > 0) {
+    insights.push({ color: "var(--amber-500)", text: "Self-transfer terdeteksi dan difilter dari kalkulasi income." });
+  }
+  if (analysis.totalAngsuranPerMonth > 0) {
+    insights.push({ color: analysis.dsr > 50 ? "var(--red-500)" : analysis.dsr > 40 ? "var(--amber-500)" : "var(--green-500)", text: "Total angsuran terdeteksi = " + formatRp(analysis.totalAngsuranPerMonth) + "/bulan = " + analysis.dsr + "% dari total penghasilan " + formatRp(k.income) + "/bulan." });
+  }
+  if (analysis.angsuranPerMonth.length > 0) {
+    insights.push({ color: "var(--amber-500)", text: "Terdeteksi " + analysis.angsuranPerMonth.length + " cicilan di tempat lain. Harap periksa dan verifikasi kembali di SLIK." });
+  }
+  if (analysis.pinjolCount > 0) {
+    insights.push({ color: "var(--red-500)", text: analysis.pinjolCount + " transaksi Pinjol (DANACEPAT) terdeteksi. Pinjaman Online (Pinjol) menunjukkan konsumen menggunakan layanan pinjaman berbasis aplikasi. Ini merupakan indikasi over-leverage, yaitu kondisi dimana total kewajiban/utang konsumen melebihi kemampuan bayar berdasarkan penghasilan. Risiko gagal bayar lebih tinggi." });
+  }
+  analysis.anomaliTrx.forEach(t => {
+    insights.push({ color: "var(--red-500)", text: "Anomali transaksi: " + t.desc + " sebesar " + formatRp(t.amount) + " pada " + t.date + ". Transaksi jumlah besar tanpa keterangan jelas - perlu klarifikasi sumber dana." });
+  });
+  if (k.scenario === "atas_nama" && analysis.atasNamaTrx.length > 0) {
+    insights.push({ color: "var(--red-500)", text: "Indikasi angsuran PT BCA Finance dibayarkan pihak lain: Transfer masuk dari DARMAWAN SUSILO 3 bulan berturut-turut (Jan, Feb, Mar) dengan nominal " + formatRp(4500000) + " - " + formatRp(5000000) + ", masing-masing 3 hari sebelum autodebet angsuran BCA Finance " + formatRp(4500000) + "/bulan." });
+  }
+  if (analysis.utilityAvg.length > 0) {
+    const utilDesc = analysis.utilityAvg.map(u => {
+      const label = u.type === "listrik" ? "PLN (ID Pel: " + u.idPelanggan + ")" : u.type === "pdam" ? "PDAM (ID Pel: " + u.idPelanggan + ")" : "Pulsa";
+      return label + " avg " + formatRp(u.avgPerMonth) + "/bln";
+    }).join(", ");
+    insights.push({ color: "var(--blue-600)", text: "Pembayaran utilitas terdeteksi: " + utilDesc + "." });
+  }
+  if (k.scenario === "over_leverage") {
+    insights.push({ color: "var(--red-500)", text: "OVER-LEVERAGE: Total kewajiban angsuran " + formatRp(analysis.totalAngsuranPerMonth) + "/bulan melebihi kemampuan bayar " + formatRp(k.income) + "/bulan. DSR " + analysis.dsr + "% jauh melebihi batas wajar. Risiko gagal bayar sangat tinggi." });
+  }
+  return insights;
+}
+
+/* ================================================================
+   SHARED COMPONENTS
    ================================================================ */
 function StatModal({ stat, list, onClose, onSelectKonsumen }) {
   if (!stat) return null;
@@ -1019,26 +534,24 @@ function StatModal({ stat, list, onClose, onSelectKonsumen }) {
       <div className="modal-panel" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <div style={{ fontSize: 17, fontWeight: 800, color: "var(--gray-900)" }}>{stat.label}</div>
+            <div style={{ fontSize: 17, fontWeight: 800 }}>{stat.label}</div>
             <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 2 }}>{list.length} konsumen</div>
           </div>
           <button className="modal-close" onClick={onClose}>&#10005;</button>
         </div>
         <div className="modal-body">
           {list.map((item, i) => (
-            <div key={i}
-              onClick={() => { onClose(); onSelectKonsumen(item); }}
-              style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 0", borderBottom: "1px solid var(--gray-100)", cursor: "pointer", transition: "background 0.15s", borderRadius: 6 }}
+            <div key={i} onClick={() => { onClose(); onSelectKonsumen(item); }}
+              style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 0", borderBottom: "1px solid var(--gray-100)", cursor: "pointer", borderRadius: 6 }}
               onMouseEnter={e => e.currentTarget.style.background = "var(--gray-50)"}
-              onMouseLeave={e => e.currentTarget.style.background = "transparent"}
-            >
+              onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
               <div className="avatar-circle" style={{ width: 34, height: 34, fontSize: 13 }}>{item.name[0]}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 13, fontWeight: 600 }}>{item.name}</div>
-                <div style={{ fontSize: 11, color: "var(--gray-500)", marginTop: 1 }}>{item.cabang} - Rp {item.ph} JT</div>
+                <div style={{ fontSize: 11, color: "var(--gray-500)", marginTop: 1 }}>{item.cabang} - {item.prod}</div>
               </div>
               <span className={`badge ${item.status === "done" ? "badge-green" : "badge-amber"}`}>
-                {item.status === "done" ? "Selesai" : "Review"}
+                {item.status === "done" ? "Selesai" : "Pending"}
               </span>
             </div>
           ))}
@@ -1048,25 +561,13 @@ function StatModal({ stat, list, onClose, onSelectKonsumen }) {
   );
 }
 
-/* ================================================================
-   LOGIN SCREEN
-   ================================================================ */
 function LoginScreen({ onLogin }) {
   const [loading, setLoading] = useState(false);
   const [dots, setDots] = useState(0);
   const [user, setUser] = useState("20180605");
   const [pass, setPass] = useState("password123");
-
-  useEffect(() => {
-    const iv = setInterval(() => setDots(d => (d + 1) % 4), 400);
-    return () => clearInterval(iv);
-  }, []);
-
-  function handleLogin() {
-    setLoading(true);
-    setTimeout(() => { setLoading(false); onLogin(); }, 1800);
-  }
-
+  useEffect(() => { const iv = setInterval(() => setDots(d => (d + 1) % 4), 400); return () => clearInterval(iv); }, []);
+  function handleLogin() { setLoading(true); setTimeout(() => { setLoading(false); onLogin(); }, 1800); }
   return (
     <div className="login-screen">
       <div className="login-grid-overlay" />
@@ -1082,67 +583,36 @@ function LoginScreen({ onLogin }) {
           </div>
           <div className="login-tagline">Financial INsight and Analysis</div>
         </div>
-
         <div className="login-card">
-          <div className="login-field">
-            <label>User ID / NIP</label>
-            <input value={user} onChange={e => setUser(e.target.value)} placeholder="Masukkan NIP" />
-          </div>
-          <div className="login-field">
-            <label>Password</label>
-            <input value={pass} onChange={e => setPass(e.target.value)} type="password" placeholder="Masukkan password" />
-          </div>
-          <button className="login-btn" onClick={handleLogin} disabled={loading}>
-            {loading ? "MENGAUTENTIKASI" + ".".repeat(dots) : "MASUK"}
-          </button>
+          <div className="login-field"><label>User ID / NIP</label><input value={user} onChange={e => setUser(e.target.value)} placeholder="Masukkan NIP" /></div>
+          <div className="login-field"><label>Password</label><input value={pass} onChange={e => setPass(e.target.value)} type="password" placeholder="Masukkan password" /></div>
+          <button className="login-btn" onClick={handleLogin} disabled={loading}>{loading ? "MENGAUTENTIKASI" + ".".repeat(dots) : "MASUK"}</button>
         </div>
-
-        <div className="login-footer">
-          Powered by FINA AI
-        </div>
+        <div className="login-footer">Powered by FINA AI - BCAF Grand Innovation 2026</div>
       </div>
     </div>
   );
 }
 
 /* ================================================================
-   DASHBOARD SCREEN
+   DASHBOARD - All 8 konsumen shown, NO scoring badges
    ================================================================ */
 function DashboardScreen({ onNavigate, onSelectKonsumen }) {
   const currentUser = useContext(UserContext);
   const konsumen = buildKonsumenDB(currentUser.branches);
-
-  const appHariIni = konsumen;
   const diproses = konsumen.filter(k => k.status === "done");
-
   const STAT_DATA = [
-    { label: "Aplikasi Bulan Ini", val: String(appHariIni.length), color: "var(--blue-600)", barColor: "var(--blue-600)", list: appHariIni },
+    { label: "Aplikasi Bulan Ini", val: String(konsumen.length), color: "var(--blue-600)", barColor: "var(--blue-600)", list: konsumen },
     { label: "Selesai Diproses FINA AI", val: String(diproses.length), color: "var(--green-500)", barColor: "var(--green-500)", list: diproses },
   ];
-
   const [activeModal, setActiveModal] = useState(null);
-
-  // 8 most recent
-  const recentList = konsumen.slice(0, 8);
-
   return (
     <div className="page">
-      <StatModal
-        stat={activeModal}
-        list={activeModal ? activeModal.list : []}
-        onClose={() => setActiveModal(null)}
-        onSelectKonsumen={onSelectKonsumen}
-      />
-
+      <StatModal stat={activeModal} list={activeModal ? activeModal.list : []} onClose={() => setActiveModal(null)} onSelectKonsumen={onSelectKonsumen} />
       <div style={{ marginBottom: 22 }}>
-        <div style={{ fontSize: 20, fontWeight: 800 }} className="page-header">
-          Selamat Pagi, <span style={{ color: "var(--blue-600)" }}>{currentUser.name}</span>
-        </div>
-        <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>
-          {currentUser.branch}
-        </div>
+        <div style={{ fontSize: 20, fontWeight: 800 }} className="page-header">Selamat Pagi, <span style={{ color: "var(--blue-600)" }}>{currentUser.name}</span></div>
+        <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>{currentUser.branch}</div>
       </div>
-
       <div className="stat-grid" style={{ marginBottom: 24 }}>
         {STAT_DATA.map((s, i) => (
           <div key={i} className="stat-card" onClick={() => setActiveModal(s)}>
@@ -1152,17 +622,16 @@ function DashboardScreen({ onNavigate, onSelectKonsumen }) {
           </div>
         ))}
       </div>
-
       <div className="section-label">Riwayat Terkini</div>
-      {recentList.map((r, i) => (
+      {konsumen.map((r, i) => (
         <div key={i} className="recent-item" onClick={() => onSelectKonsumen(r)}>
           <div className="avatar-circle">{r.name[0]}</div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 13, fontWeight: 600 }}>{r.name}</div>
-            <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{r.cabang}</div>
+            <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{r.cabang} - {r.prod}</div>
           </div>
           <span className={`badge ${r.status === "done" ? "badge-green" : "badge-amber"}`}>
-            {r.status === "done" ? "Selesai" : "Review"}
+            {r.status === "done" ? "Selesai" : "Pending"}
           </span>
         </div>
       ))}
@@ -1171,332 +640,153 @@ function DashboardScreen({ onNavigate, onSelectKonsumen }) {
 }
 
 /* ================================================================
-   UPLOAD SCREEN
+   UPLOAD SCREEN - any 7 digit input works, multi-rek support
    ================================================================ */
 function UploadScreen({ onNavigate, onUploadComplete }) {
   const currentUser = useContext(UserContext);
-  const defaultCabang = currentUser.branches[0];
+  const konsumenDB = buildKonsumenDB(currentUser.branches);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [foundKonsumen, setFoundKonsumen] = useState(null);
+  const [searching, setSearching] = useState(false);
+  const MONTHS = ["Januari 2025", "Februari 2025", "Maret 2025", "April 2025", "Mei 2025", "Juni 2025"];
+  // Separate upload states for konsumen and pasangan
+  const [konsumenFiles, setKonsumenFiles] = useState({});
+  const [pasanganFiles, setPasanganFiles] = useState({});
+  const [uploadKonsumen, setUploadKonsumen] = useState(false);
+  const [uploadPasangan, setUploadPasangan] = useState(false);
 
-  // Random consumer data generator
-  const [form, setForm] = useState(() => {
-    const NAMES = ["Andi Pratama", "Rina Wulandari", "Dedi Kurniawan", "Sinta Dewi", "Agung Saputra", "Mega Puspita", "Irfan Hakim", "Wati Susilawati", "Rudi Hermanto", "Lina Marlina"];
-    const CMOS = ["Susi Susanti", "Agus Prabowo", "Rina Kartika", "Doni Hermawan", "Benny Tan", "Irene Lim", "Rizky Harahap", "Yanti Siregar"];
-    const SPOUSES = ["", "", "", "Maria Tan", "Eko Prasetyo", "Sari Rahmawati", "Budi Setiawan", ""];
-    const rName = NAMES[Math.floor(Math.random() * NAMES.length)];
-    const rCmo = CMOS[Math.floor(Math.random() * CMOS.length)];
-    const rSpouse = SPOUSES[Math.floor(Math.random() * SPOUSES.length)];
-    return {
-      name: rName,
-      appId: randId(), mid: randId(), bank: "BCA",
-      cabang: defaultCabang, cmo: rCmo, pasangan: rSpouse,
-    };
-  });
-  const set = k => v => setForm(f => ({ ...f, [k]: v }));
-
-  const MONTHS = ["Bulan 1", "Bulan 2", "Bulan 3", "Bulan 4", "Bulan 5", "Bulan 6"];
-  const [monthFiles, setMonthFiles] = useState({});
-  const [otherFiles, setOtherFiles] = useState([]);
-
-  function toggleMonth(m) {
-    setMonthFiles(prev => {
-      if (prev[m]) { const n = { ...prev }; delete n[m]; return n; }
-      return { ...prev, [m]: { name: "mutasi_" + m.replace(" ", "_").toLowerCase() + ".pdf", size: (1.2 + Math.random() * 2).toFixed(1) + " MB" } };
-    });
+  function handleSearch() {
+    if (!searchQuery.trim()) return;
+    setSearching(true);
+    setFoundKonsumen(null);
+    setKonsumenFiles({});
+    setPasanganFiles({});
+    setUploadKonsumen(false);
+    setUploadPasangan(false);
+    setTimeout(() => {
+      const q = searchQuery.trim();
+      // Try exact match first, else pick random konsumen from branch
+      let found = konsumenDB.find(k => k.appId === q || k.mid === q);
+      if (!found && /^\d{7}$/.test(q)) {
+        // Any 7-digit number -> pick a random konsumen from the user's branch
+        found = konsumenDB[Math.floor(Math.random() * konsumenDB.length)];
+        // Clone with the entered ID
+        found = { ...found, appId: q };
+      }
+      setFoundKonsumen(found || null);
+      setSearching(false);
+    }, 1200);
   }
-  function addOther() {
-    const names = ["slip_gaji_feb2025.pdf", "spt_2024.pdf", "rekening_bni_mar2025.pdf", "surat_keterangan_kerja.pdf"];
-    setOtherFiles(f => [...f, { name: names[f.length % names.length], size: (0.5 + Math.random()).toFixed(1) + " MB" }]);
-  }
-  function removeOther(i) { setOtherFiles(f => f.filter((_, idx) => idx !== i)); }
 
-  const uploadedCount = Object.keys(monthFiles).length;
-  const canProceed = uploadedCount >= 1;
+  function toggleKFile(m) { setKonsumenFiles(prev => { if (prev[m]) { const n = { ...prev }; delete n[m]; return n; } return { ...prev, [m]: { name: "mutasi_konsumen_" + m.replace(/ /g, "_").toLowerCase() + ".pdf", size: (1.2 + Math.random() * 2).toFixed(1) + " MB" } }; }); }
+  function togglePFile(m) { setPasanganFiles(prev => { if (prev[m]) { const n = { ...prev }; delete n[m]; return n; } return { ...prev, [m]: { name: "mutasi_pasangan_" + m.replace(/ /g, "_").toLowerCase() + ".pdf", size: (1.2 + Math.random() * 2).toFixed(1) + " MB" } }; }); }
+
+  const kCount = Object.keys(konsumenFiles).length;
+  const pCount = Object.keys(pasanganFiles).length;
+  const totalUploaded = (uploadKonsumen ? kCount : 0) + (uploadPasangan ? pCount : 0);
+  const canProceed = foundKonsumen && ((uploadKonsumen && kCount >= 1) || (uploadPasangan && pCount >= 1));
 
   return (
     <div className="page">
       <div style={{ marginBottom: 22 }}>
         <div style={{ fontSize: 20, fontWeight: 800 }} className="page-header">Upload Mutasi Rekening</div>
-        <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>Upload bank statement dalam format PDF</div>
+        <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>Cari data konsumen dari ONE ME, lalu upload dokumen mutasi</div>
       </div>
-
       <div className="card">
-        <div className="section-label">Data Konsumen</div>
-        <div className="field">
-          <label>Nama Konsumen</label>
-          <input value={form.name} onChange={e => set("name")(e.target.value)} placeholder="Masukkan nama konsumen" />
-        </div>
-        <div className="grid-2">
-          <div className="field">
-            <label>APP ID</label>
-            <input value={form.appId} onChange={e => set("appId")(e.target.value)} />
-          </div>
-          <div className="field">
-            <label>MID</label>
-            <input value={form.mid} onChange={e => set("mid")(e.target.value)} />
-          </div>
-        </div>
-        <div className="field">
-          <label>Nama Pasangan (jika ada)</label>
-          <input value={form.pasangan} onChange={e => set("pasangan")(e.target.value)} placeholder="Opsional" />
-        </div>
-        <div className="field">
-          <label>Bank Penerbit</label>
-          <input value={form.bank} onChange={e => set("bank")(e.target.value)} />
-        </div>
-        <div className="grid-2">
-          <div className="field">
-            <label>Cabang</label>
-            {currentUser.branches.length > 1 ? (
-              <select value={form.cabang} onChange={e => set("cabang")(e.target.value)}>
-                {currentUser.branches.map(b => <option key={b} value={b}>{b}</option>)}
-              </select>
-            ) : (
-              <input value={form.cabang} readOnly style={{ background: "var(--gray-100)" }} />
-            )}
-          </div>
-          <div className="field">
-            <label>Nama CMO</label>
-            <input value={form.cmo} onChange={e => set("cmo")(e.target.value)} placeholder="Masukkan nama CMO" />
-          </div>
+        <div className="section-label">Cari Data Konsumen dari ONE ME</div>
+        <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: 12 }}>Masukkan APP ID atau MID (7 angka) untuk menarik data konsumen dari ONE ME</div>
+        <div className="search-box">
+          <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Masukkan APP ID atau MID..." onKeyDown={e => e.key === "Enter" && handleSearch()} />
+          <button onClick={handleSearch} disabled={searching}>{searching ? "Mencari..." : "Search"}</button>
         </div>
       </div>
 
-      <div className="card">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-          <div className="section-label" style={{ marginBottom: 0 }}>Upload Mutasi Per Bulan</div>
-          <span className={`badge ${uploadedCount >= 1 ? "badge-green" : "badge-blue"}`}>{uploadedCount} file</span>
-        </div>
-        <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: 14 }}>Pilih bulan yang tersedia (minimal 1 bulan)</div>
-        <div className="upload-grid">
-          {MONTHS.map(m => {
-            const f = monthFiles[m];
-            return (
-              <div key={m} className={`upload-slot ${f ? "filled" : ""}`} onClick={() => toggleMonth(m)}>
-                <div className="slot-label">{m}</div>
-                {f
-                  ? <div className="slot-info">Uploaded - {f.size}</div>
-                  : <div className="slot-info">Klik untuk upload</div>
-                }
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="card">
-        <div className="section-label">Dokumen Pendukung Lainnya</div>
-        {otherFiles.map((f, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "var(--green-100)", border: "1px solid #a7f3d0", borderRadius: "var(--radius-sm)", padding: "10px 12px", marginBottom: 7 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "var(--gray-700)" }}>{f.name}</div>
-              <div style={{ fontSize: 10, color: "var(--gray-500)" }}>{f.size}</div>
+      {foundKonsumen && (
+        <>
+          <div className="card" style={{ borderColor: "var(--green-500)", borderWidth: 2 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+              <div className="section-label" style={{ marginBottom: 0 }}>Data Konsumen - ONE ME</div>
+              <span className="badge badge-green">Terverifikasi</span>
             </div>
-            <button onClick={() => removeOther(i)} style={{ background: "none", border: "none", color: "var(--red-500)", cursor: "pointer", fontSize: 16, fontWeight: 700, padding: "2px 6px" }}>&#10005;</button>
-          </div>
-        ))}
-        <button onClick={addOther} style={{ width: "100%", padding: 11, borderRadius: "var(--radius-sm)", border: "2px dashed var(--gray-300)", background: "transparent", color: "var(--gray-500)", fontSize: 12, cursor: "pointer", fontWeight: 600 }}>
-          + Tambah File Dokumen
-        </button>
-      </div>
-
-      <button className="btn-primary" onClick={() => {
-        if (!canProceed) return;
-        const newK = {
-          id: "KUPLOAD_" + randId(),
-          name: form.name,
-          prod: "KKB",
-          ph: 200,
-          cabang: form.cabang,
-          status: "done",
-          cmo: form.cmo,
-          bank: form.bank,
-          nik: "",
-          months: uploadedCount,
-          income: 8000000,
-          employer: "PT Data Upload",
-          dsr: 30,
-          pinjol: 0,
-          risk: "low",
-          score: 80,
-        };
-        onUploadComplete(newK);
-      }} disabled={!canProceed}>
-        Mulai Verifikasi dan Analisa ({uploadedCount} bulan)
-      </button>
-    </div>
-  );
-}
-
-/* ================================================================
-   VERIFICATION RESULT CARD - with expandable parameters
-   ================================================================ */
-function VerifResultCard({ k, flagCount, isAuthentic }) {
-  const [expanded, setExpanded] = useState(false);
-
-  // Simulated verification parameter scores
-  const metadataScore = 96;
-  const fontScore = 93;
-  const checksumScore = 98;
-  const patternScore = flagCount > 0 ? 72 : 91;
-  const overallScore = Math.round((metadataScore + fontScore + checksumScore + patternScore) / 4 * 10) / 10;
-
-  const summaryParams = [
-    ["Integritas Metadata", "Valid", "var(--green-600)"],
-    ["Konsistensi Font", "Asli", "var(--green-600)"],
-    ["Checksum Angka", "Sesuai", "var(--green-600)"],
-    ["Pola Transaksi", flagCount > 0 ? flagCount + " Flag" : "Normal", flagCount > 0 ? "var(--amber-600)" : "var(--green-600)"],
-  ];
-
-  const detailParams = [
-    { category: "Integritas Metadata", score: metadataScore, items: [
-      { label: "PDF Producer", value: k ? "Bank " + k.bank + " e-Statement" : "Bank BCA e-Statement", status: "pass" },
-      { label: "Creation Date", value: "Konsisten dengan periode", status: "pass" },
-      { label: "Modification History", value: "Tidak ada modifikasi", status: "pass" },
-      { label: "Digital Signature", value: "Terverifikasi", status: "pass" },
-    ]},
-    { category: "Konsistensi Font", score: fontScore, items: [
-      { label: "Font Family", value: "Seragam (Arial/Helvetica)", status: "pass" },
-      { label: "Font Size Variance", value: "Normal (< 0.5pt)", status: "pass" },
-      { label: "Embedding Type", value: "Subset embedded", status: "pass" },
-      { label: "Anomali Karakter", value: "Tidak ditemukan", status: "pass" },
-    ]},
-    { category: "Checksum Angka", score: checksumScore, items: [
-      { label: "Saldo Awal vs Akhir", value: "Cocok semua bulan", status: "pass" },
-      { label: "Total Debit/Kredit", value: "Sesuai dengan saldo", status: "pass" },
-      { label: "Running Balance", value: "Kalkulasi benar", status: "pass" },
-    ]},
-    { category: "Pola Transaksi", score: patternScore, items: [
-      { label: "Window Dressing", value: "Tidak terdeteksi", status: "pass" },
-      { label: "Self-Transfer", value: "Terdeteksi & difilter", status: "warn" },
-      { label: "Pinjol / P2P Lending", value: flagCount > 0 ? flagCount + " transaksi terdeteksi" : "Tidak terdeteksi", status: flagCount > 0 ? "fail" : "pass" },
-      { label: "Frekuensi Abnormal", value: "Normal", status: "pass" },
-    ]},
-  ];
-
-  return (
-    <div className="verif-result authentic" style={{ animation: "fadeUp 0.35s ease" }}>
-      <div className="verif-result-header">
-        <div className="verif-icon pass">{"\u2713"}</div>
-        <div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: "var(--green-600)" }}>DOKUMEN ASLI / AUTHENTIC</div>
-          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>Confidence Score: {overallScore}%</div>
-        </div>
-      </div>
-
-      <div className="verif-grid">
-        {summaryParams.map(([l, v, col], i) => (
-          <div key={i} className="verif-cell">
-            <div className="verif-cell-label">{l}</div>
-            <div className="verif-cell-val" style={{ color: col }}>{v}</div>
-          </div>
-        ))}
-      </div>
-
-      {expanded && (
-        <div style={{ marginTop: 16, animation: "fadeUp 0.3s ease" }}>
-          {detailParams.map((cat, ci) => (
-            <div key={ci} style={{ marginBottom: 14 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "var(--gray-700)", textTransform: "uppercase", letterSpacing: "0.5px" }}>{cat.category}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: cat.score >= 90 ? "var(--green-600)" : cat.score >= 75 ? "var(--amber-600)" : "var(--red-600)" }}>{cat.score}%</div>
-              </div>
-              {cat.items.map((item, ii) => (
-                <div key={ii} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 10px", background: "rgba(255,255,255,0.7)", borderRadius: "var(--radius-sm)", marginBottom: 4, borderLeft: "3px solid " + (item.status === "pass" ? "var(--green-500)" : item.status === "warn" ? "var(--amber-500)" : "var(--red-500)") }}>
-                  <div style={{ fontSize: 11, color: "var(--gray-600)" }}>{item.label}</div>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: item.status === "pass" ? "var(--green-600)" : item.status === "warn" ? "var(--amber-600)" : "var(--red-600)" }}>{item.value}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              {[
+                ["Nama Konsumen", foundKonsumen.name], ["NIK", foundKonsumen.nik],
+                ["APP ID", foundKonsumen.appId], ["MID", foundKonsumen.mid],
+                ["Pasangan", foundKonsumen.pasangan || "-"], ["CMO", foundKonsumen.cmo],
+                ["Cabang", foundKonsumen.cabang], ["Produk", foundKonsumen.prod],
+                ["Profesi", foundKonsumen.profesi === "wiraswasta" ? "Wiraswasta" : "Karyawan"],
+                [foundKonsumen.profesi === "wiraswasta" ? "Nama Usaha" : "Perusahaan", foundKonsumen.profesi === "wiraswasta" ? foundKonsumen.namaUsaha : foundKonsumen.employer],
+                ...(foundKonsumen.profesi === "wiraswasta" ? [["Bidang Usaha", foundKonsumen.bidangUsaha]] : [["Jabatan", foundKonsumen.jabatan]]),
+              ].map(([label, val], i) => (
+                <div key={i} style={{ padding: "8px 10px", background: "var(--gray-50)", borderRadius: "var(--radius-sm)" }}>
+                  <div style={{ fontSize: 10, color: "var(--gray-500)", textTransform: "uppercase", letterSpacing: "0.4px" }}>{label}</div>
+                  <div style={{ fontSize: 12, fontWeight: 600, marginTop: 2 }}>{val}</div>
                 </div>
               ))}
             </div>
-          ))}
-        </div>
-      )}
-
-      <button onClick={() => setExpanded(v => !v)} style={{
-        width: "100%", marginTop: 14, padding: "10px 16px", borderRadius: "var(--radius-md)",
-        border: "1px solid #a7f3d0", background: expanded ? "rgba(255,255,255,0.7)" : "rgba(5,150,105,0.08)",
-        color: "var(--green-600)", fontWeight: 700, fontSize: 12, cursor: "pointer",
-        fontFamily: "var(--font)", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6
-      }}>
-        {expanded ? "Sembunyikan Detail" : "Lihat Lebih Lengkap"}
-        <span style={{ fontSize: 10, transition: "transform 0.2s", transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}>{"\u25BC"}</span>
-      </button>
-    </div>
-  );
-}
-
-/* ================================================================
-   VERIFICATION SCREEN
-   ================================================================ */
-function VerificationScreen({ onNavigate, konsumen }) {
-  const k = konsumen;
-  const [step, setStep] = useState(0);
-  const steps = [
-    "Membaca format dokumen PDF",
-    "OCR - Ekstraksi teks dan angka",
-    "Analisis metadata dokumen",
-    "Deteksi manipulasi dan anomali font",
-    "Validasi struktur mutasi rekening",
-    "Filter transaksi self-transfer dan window dressing",
-    "Menghasilkan laporan verifikasi",
-  ];
-
-  useEffect(() => {
-    setStep(0);
-  }, [k && k.id]);
-
-  useEffect(() => {
-    if (step < steps.length) {
-      const t = setTimeout(() => setStep(s => s + 1), 700);
-      return () => clearTimeout(t);
-    }
-  }, [step]);
-
-  const done = step >= steps.length;
-  const isAuthentic = !k || k.pinjol <= 1;
-  const flagCount = k ? k.pinjol : 0;
-
-  return (
-    <div className="page">
-      <div style={{ marginBottom: 22 }}>
-        <div style={{ fontSize: 20, fontWeight: 800 }} className="page-header">Verifikasi Dokumen</div>
-        <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>AI Document Verification</div>
-      </div>
-
-      <div className="card" style={{ display: "flex", gap: 14, alignItems: "center" }}>
-        <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: "var(--red-100)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 13, color: "var(--red-500)", flexShrink: 0 }}>PDF</div>
-        <div>
-          <div style={{ fontSize: 13, fontWeight: 600 }}>mutasi_{k ? k.name.toLowerCase().replace(/ /g, "_") : "konsumen"}.pdf</div>
-          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{k ? k.months : 3} file - Bank {k ? k.bank : "BCA"} - Januari s.d. Maret 2025</div>
-        </div>
-      </div>
-
-      <div className="card">
-        <div className="section-label">Proses Verifikasi AI</div>
-        {steps.map((s, i) => (
-          <div key={i} className="step-row">
-            <div className={`step-dot ${i < step ? "done" : i === step ? "active" : "pending"}`}>
-              {i < step ? "\u2713" : i + 1}
-            </div>
-            <div className={`step-text ${i < step ? "done" : ""}`}>{s}</div>
           </div>
-        ))}
-      </div>
 
-      {done && (
-        <>
-          <VerifResultCard k={k} flagCount={flagCount} isAuthentic={isAuthentic} />
+          {/* Rekening Selection - Independent toggles */}
+          <div className="card">
+            <div className="section-label">Pilih Rekening yang Akan Diupload</div>
+            <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: 12 }}>Klik untuk memilih. Anda bisa upload rekening konsumen saja, pasangan saja, atau keduanya. FINA AI akan memverifikasi kesesuaian nama di mutasi.</div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <button className={`filter-btn ${uploadKonsumen ? "active" : ""}`} onClick={() => setUploadKonsumen(v => !v)}>
+                Rekening {foundKonsumen.name}
+              </button>
+              {foundKonsumen.pasangan && (
+                <button className={`filter-btn ${uploadPasangan ? "active" : ""}`} onClick={() => setUploadPasangan(v => !v)}>
+                  Rekening Pasangan ({foundKonsumen.pasangan})
+                </button>
+              )}
+              {foundKonsumen.profesi === "wiraswasta" && (
+                <button className="filter-btn" style={{ opacity: 0.5, cursor: "default" }}>
+                  Rekening PT/Usaha ({foundKonsumen.namaUsaha}) - Coming Soon
+                </button>
+              )}
+            </div>
+          </div>
 
-          {flagCount > 0 && (
-            <div style={{ background: "var(--amber-100)", border: "1px solid #fde68a", borderRadius: "var(--radius-md)", padding: 14, marginBottom: 16 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--amber-600)" }}>{flagCount} FLAG TERDETEKSI</div>
-              <div style={{ fontSize: 12, color: "var(--gray-700)", marginTop: 4 }}>
-                Transaksi terkait Pinjaman Online (Pinjol) terdeteksi. Perlu review lebih lanjut.
+          {/* Upload Grid - Konsumen */}
+          {uploadKonsumen && (
+            <div className="card">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                <div className="section-label" style={{ marginBottom: 0 }}>Mutasi Rekening {foundKonsumen.name}</div>
+                <span className={`badge ${kCount >= 1 ? "badge-green" : "badge-blue"}`}>{kCount} file</span>
+              </div>
+              <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: 14 }}>Pilih bulan yang tersedia (minimal 1 bulan, disarankan 3 bulan)</div>
+              <div className="upload-grid">
+                {MONTHS.map(m => {
+                  const f = konsumenFiles[m];
+                  return (<div key={m} className={`upload-slot ${f ? "filled" : ""}`} onClick={() => toggleKFile(m)}><div className="slot-label">{m}</div>{f ? <div className="slot-info">Uploaded - {f.size}</div> : <div className="slot-info">Klik untuk upload</div>}</div>);
+                })}
               </div>
             </div>
           )}
 
-          <button className="btn-primary" onClick={() => onNavigate("analysis")}>
-            Lihat Hasil Analisa Lengkap
+          {/* Upload Grid - Pasangan */}
+          {uploadPasangan && foundKonsumen.pasangan && (
+            <div className="card">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                <div className="section-label" style={{ marginBottom: 0 }}>Mutasi Rekening {foundKonsumen.pasangan}</div>
+                <span className={`badge ${pCount >= 1 ? "badge-green" : "badge-blue"}`}>{pCount} file</span>
+              </div>
+              <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: 14 }}>Pilih bulan yang tersedia</div>
+              <div className="upload-grid">
+                {MONTHS.map(m => {
+                  const f = pasanganFiles[m];
+                  return (<div key={m} className={`upload-slot ${f ? "filled" : ""}`} onClick={() => togglePFile(m)}><div className="slot-label">{m}</div>{f ? <div className="slot-info">Uploaded - {f.size}</div> : <div className="slot-info">Klik untuk upload</div>}</div>);
+                })}
+              </div>
+            </div>
+          )}
+
+          <button className="btn-primary" onClick={() => {
+            if (!canProceed) return;
+            const meta = { ...foundKonsumen, months: Math.max(kCount, pCount, 3), uploadKonsumen, uploadPasangan, kCount, pCount };
+            onUploadComplete(meta);
+          }} disabled={!canProceed}>
+            Mulai Verifikasi dan Analisa ({uploadKonsumen ? kCount : 0}{uploadPasangan ? " + " + pCount : ""} file)
           </button>
         </>
       )}
@@ -1505,220 +795,356 @@ function VerificationScreen({ onNavigate, konsumen }) {
 }
 
 /* ================================================================
-   ANALYSIS SCREEN - NO Credit Scoring section
+   VERIFICATION SCREEN
    ================================================================ */
-function AnalysisScreen({ konsumen, onNavigate }) {
-  const k = konsumen;
-  const trxData = k ? getTrxForKonsumen(k) : [];
+function VerifResultCard({ k, flagCount, isAuthentic }) {
+  const [expanded, setExpanded] = useState(false);
+  const metadataScore = 96; const fontScore = 93; const checksumScore = 98;
+  const patternScore = flagCount > 0 ? 72 : 91;
+  const overallScore = Math.round((metadataScore + fontScore + checksumScore + patternScore) / 4 * 10) / 10;
+  const summaryParams = [["Integritas Metadata", "Valid", "var(--green-600)"], ["Konsistensi Font", "Asli", "var(--green-600)"], ["Checksum Angka", "Sesuai", "var(--green-600)"], ["Pola Transaksi", flagCount > 0 ? flagCount + " Flag" : "Normal", flagCount > 0 ? "var(--amber-600)" : "var(--green-600)"]];
+  return (
+    <div className={`verif-result ${isAuthentic ? "authentic" : "manipulated"}`} style={{ animation: "fadeUp 0.35s ease" }}>
+      <div className="verif-result-header">
+        <div className={`verif-icon ${isAuthentic ? "pass" : "fail"}`}>{isAuthentic ? "\u2713" : "\u2717"}</div>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: isAuthentic ? "var(--green-600)" : "var(--red-600)" }}>{isAuthentic ? "DOKUMEN ASLI / AUTHENTIC" : "INDIKASI MANIPULASI"}</div>
+          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>Confidence Score: {overallScore}%</div>
+        </div>
+      </div>
+      <div className="verif-grid">
+        {summaryParams.map(([l, v, col], i) => (<div key={i} className="verif-cell"><div className="verif-cell-label">{l}</div><div className="verif-cell-val" style={{ color: col }}>{v}</div></div>))}
+      </div>
+      <button onClick={() => setExpanded(v => !v)} style={{ width: "100%", marginTop: 14, padding: "10px 16px", borderRadius: "var(--radius-md)", border: isAuthentic ? "1px solid #a7f3d0" : "1px solid #fecaca", background: expanded ? "rgba(255,255,255,0.7)" : isAuthentic ? "rgba(5,150,105,0.08)" : "rgba(220,38,38,0.08)", color: isAuthentic ? "var(--green-600)" : "var(--red-600)", fontWeight: 700, fontSize: 12, cursor: "pointer", fontFamily: "var(--font)", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+        {expanded ? "Sembunyikan Detail" : "Lihat Lebih Lengkap"}
+        <span style={{ fontSize: 10, transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}>{"\u25BC"}</span>
+      </button>
+    </div>
+  );
+}
 
+function VerificationScreen({ onNavigate, konsumen }) {
+  const k = konsumen;
+  const isWrongAccount = k?.scenario === "wrong_account";
+  const [step, setStep] = useState(0);
+  const steps = isWrongAccount ? [
+    "Membaca format dokumen PDF",
+    "OCR - ekstraksi teks dan angka",
+    "Verifikasi kepemilikan rekening",
+  ] : [
+    "Membaca format dokumen PDF",
+    "OCR - ekstraksi teks dan angka",
+    "Verifikasi kepemilikan rekening",
+    "Analisis metadata dokumen",
+    "Deteksi manipulasi dan anomali font",
+    "Validasi struktur mutasi rekening",
+    "Filter transaksi self-transfer dan window dressing",
+    "Identifikasi transaksi usaha",
+    "Menghasilkan laporan verifikasi",
+  ];
+
+  useEffect(() => { setStep(0); }, [k && k.id]);
+  useEffect(() => {
+    if (isWrongAccount && step === 2) { const t = setTimeout(() => setStep(s => s + 1), 1200); return () => clearTimeout(t); }
+    if (step < steps.length) { const t = setTimeout(() => setStep(s => s + 1), 700); return () => clearTimeout(t); }
+  }, [step]);
+
+  const done = isWrongAccount ? step >= 3 : step >= steps.length;
+  const failed = isWrongAccount && done;
+  const flagCount = k ? (k.scenario === "pinjol_kpr" ? 4 : 0) : 0;
+
+  return (
+    <div className="page">
+      <div style={{ marginBottom: 22 }}>
+        <div style={{ fontSize: 20, fontWeight: 800 }} className="page-header">Verifikasi Dokumen</div>
+        <div style={{ fontSize: 12, color: "var(--gray-500)", marginTop: 3 }}>AI Document Verification & OCR</div>
+      </div>
+      <div className="card" style={{ display: "flex", gap: 14, alignItems: "center" }}>
+        <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: "var(--red-100)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 13, color: "var(--red-500)", flexShrink: 0 }}>PDF</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 600 }}>mutasi_{k ? k.name.toLowerCase().replace(/ /g, "_") : "konsumen"}.pdf</div>
+          <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{k ? k.months : 3} file - Bank {k ? k.bank : "BCA"}</div>
+        </div>
+      </div>
+      <div className="card">
+        <div className="section-label">Proses Verifikasi AI</div>
+        {steps.map((s, i) => {
+          let dotClass = "pending"; let textClass = "";
+          if (failed && i === 2) { dotClass = "failed"; textClass = "failed"; }
+          else if (i < step) { dotClass = "done"; textClass = "done"; }
+          else if (i === step) dotClass = "active";
+          return (<div key={i} className="step-row"><div className={`step-dot ${dotClass}`}>{failed && i === 2 ? "\u2717" : i < step ? "\u2713" : i + 1}</div><div className={`step-text ${textClass}`}>{s}</div></div>);
+        })}
+      </div>
+      {failed && (
+        <>
+          <div className="verif-result manipulated" style={{ animation: "fadeUp 0.35s ease" }}>
+            <div className="verif-result-header">
+              <div className="verif-icon fail">{"\u2717"}</div>
+              <div><div style={{ fontSize: 16, fontWeight: 800, color: "var(--red-600)" }}>VERIFIKASI GAGAL</div><div style={{ fontSize: 11, color: "var(--gray-500)" }}>Kepemilikan rekening tidak sesuai</div></div>
+            </div>
+            <div style={{ padding: 14, background: "rgba(255,255,255,0.7)", borderRadius: "var(--radius-md)", marginTop: 8 }}>
+              <div style={{ fontSize: 12, color: "var(--gray-700)", lineHeight: 1.6 }}>
+                <strong style={{ color: "var(--red-600)" }}>Nama di Mutasi:</strong> {k.wrongRekName}<br/>
+                <strong style={{ color: "var(--blue-600)" }}>Nama Konsumen:</strong> {k.name}<br/>
+                <strong style={{ color: "var(--blue-600)" }}>Nama Pasangan:</strong> {k.pasangan || "-"}<br/><br/>
+                Nama pemilik rekening di mutasi (<strong>{k.wrongRekName}</strong>) tidak sesuai dengan nama konsumen, pasangan, atau PT milik konsumen. Dokumen tidak dapat diproses.
+              </div>
+            </div>
+          </div>
+          <button className="btn-primary" onClick={() => onNavigate("upload")} style={{ background: "linear-gradient(135deg, var(--gray-500), var(--gray-700))" }}>Kembali ke Upload</button>
+        </>
+      )}
+      {done && !failed && (
+        <>
+          <VerifResultCard k={k} flagCount={flagCount} isAuthentic={true} />
+          {flagCount > 0 && (
+            <div style={{ background: "var(--amber-100)", border: "1px solid #fde68a", borderRadius: "var(--radius-md)", padding: 14, marginBottom: 16 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--amber-600)" }}>{flagCount} FLAG TERDETEKSI</div>
+              <div style={{ fontSize: 12, color: "var(--gray-700)", marginTop: 4 }}>Transaksi Pinjaman Online (Pinjol) terdeteksi. Perlu review.</div>
+            </div>
+          )}
+          <button className="btn-primary" onClick={() => onNavigate("analysis")}>Lihat Hasil Analisa Lengkap</button>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ================================================================
+   SINGLE ANALYSIS PANEL (reusable for konsumen/pasangan/combined)
+   ================================================================ */
+function AnalysisPanel({ k, label, isCombined, combinedData }) {
+  const analysis = isCombined ? combinedData : computeAnalysis(k);
+  const trxData = analysis.trx || [];
+  const insights = isCombined ? combinedData.insights : buildInsights(k, analysis);
   const [tab, setTab] = useState("summary");
   const [hideself, setHideself] = useState(true);
   const [showAngsuran, setShowAngsuran] = useState(false);
+  const [showUtility, setShowUtility] = useState(false);
+  const displayTrx = trxData.filter(t => hideself ? !t.selfTransfer : true);
+
+  return (
+    <div>
+      {label && <div style={{ fontSize: 14, fontWeight: 800, color: "var(--blue-600)", marginBottom: 12, padding: "10px 14px", background: "var(--blue-50)", borderRadius: "var(--radius-md)", border: "1px solid var(--blue-100)" }}>{label}</div>}
+
+      <div className="tabs">
+        {[["summary", "Ringkasan"], ["transactions", "Transaksi"]].map(([id, lbl]) => (
+          <button key={id} className={`tab-btn ${tab === id ? "active" : ""}`} onClick={() => setTab(id)}>{lbl}</button>
+        ))}
+      </div>
+
+      {tab === "summary" && (
+        <>
+          {k.months < 3 && (
+            <div style={{ background: "var(--amber-100)", border: "1px solid #fde68a", borderRadius: "var(--radius-lg)", padding: "14px 18px", marginBottom: 16, display: "flex", gap: 12 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "var(--amber-600)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 14, flexShrink: 0 }}>!</div>
+              <div><div style={{ fontSize: 13, fontWeight: 700, color: "var(--amber-600)" }}>Data Mutasi Hanya {k.months} Bulan</div><div style={{ fontSize: 12, color: "var(--gray-700)", marginTop: 3, lineHeight: 1.5 }}>Disarankan upload minimal 3 bulan.</div></div>
+            </div>
+          )}
+          <div className="card" style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 16 }}>
+            <div className="avatar-circle" style={{ width: 48, height: 48, fontSize: 18 }}>{k.name[0]}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 15, fontWeight: 700 }}>{k.name}</div>
+              <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{k.cabang} - Bank {k.bank} - No. Rek: {k.noRek}</div>
+              <div style={{ fontSize: 11, color: "var(--gray-500)" }}>CMO: {k.cmo} | {k.profesi === "wiraswasta" ? "Wiraswasta - " + k.namaUsaha : "Karyawan - " + k.employer}</div>
+            </div>
+          </div>
+          <div className="kpi-grid" style={{ marginBottom: 16 }}>
+            {[
+              ["Total Kredit (" + k.months + " bln)", formatRp(analysis.totalKredit), "var(--green-600)"],
+              ["Avg Kredit / Bln", formatRp(analysis.avgKredit), "var(--green-600)"],
+              ["Avg Income / Bln", formatRp(analysis.avgIncome), "var(--blue-600)"],
+              ["Total Debit (" + k.months + " bln)", formatRp(analysis.totalDebit), "var(--red-600)"],
+              ["Total Angsuran / Bln", formatRp(analysis.totalAngsuranPerMonth), "var(--amber-600)"],
+              ["DSR (Debt Service Ratio)", analysis.dsr + "%", analysis.dsr > 50 ? "var(--red-600)" : analysis.dsr > 40 ? "var(--amber-600)" : "var(--green-600)"],
+            ].map(([l, v, col], i) => (<div key={i} className="kpi-card"><div className="kpi-val" style={{ color: col }}>{v}</div><div className="kpi-label">{l}</div></div>))}
+          </div>
+          {analysis.angsuranPerMonth.length > 0 && (
+            <div className="card" style={{ borderColor: "#fde68a" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--amber-600)" }}>Deteksi Angsuran di Tempat Lain</div>
+                <button onClick={() => setShowAngsuran(v => !v)} style={{ background: "none", border: "none", color: "var(--blue-600)", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>{showAngsuran ? "Sembunyikan" : "Lihat Detail"}</button>
+              </div>
+              <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: showAngsuran ? 12 : 0 }}>ML mendeteksi otomatis dari keyword AUTODEBET / ANGSURAN</div>
+              {showAngsuran && (
+                <>
+                  {analysis.angsuranPerMonth.map((a, i) => (<div key={i} className="angsuran-item"><div style={{ fontSize: 12, fontWeight: 600, color: "var(--gray-700)" }}>{a.label}</div><div style={{ color: "var(--red-600)", fontSize: 13, fontWeight: 700 }}>{formatRp(a.perMonth)} / bln</div></div>))}
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid var(--gray-200)" }}>
+                    <div style={{ fontSize: 12, fontWeight: 700 }}>Total Angsuran Terdeteksi</div>
+                    <div style={{ color: "var(--amber-600)", fontSize: 13, fontWeight: 900 }}>{formatRp(analysis.totalAngsuranPerMonth)} / bln</div>
+                  </div>
+                  <div style={{ marginTop: 8, padding: "8px 12px", background: "var(--amber-100)", borderRadius: "var(--radius-sm)", fontSize: 11, fontWeight: 600, color: "var(--amber-600)" }}>Harap periksa dan verifikasi kembali di SLIK</div>
+                </>
+              )}
+            </div>
+          )}
+          {analysis.utilityAvg.length > 0 && (
+            <div className="card" style={{ borderColor: "#bbf7d0" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--green-600)" }}>Deteksi Pembayaran Utilitas</div>
+                <button onClick={() => setShowUtility(v => !v)} style={{ background: "none", border: "none", color: "var(--blue-600)", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>{showUtility ? "Sembunyikan" : "Lihat Detail"}</button>
+              </div>
+              {showUtility && analysis.utilityAvg.map((u, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 12px", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "var(--radius-sm)", marginBottom: 6 }}>
+                  <div><div style={{ fontSize: 12, fontWeight: 600, color: "var(--gray-700)" }}>{u.type === "listrik" ? "PLN / Listrik" : u.type === "pdam" ? "PDAM / Air" : "Pulsa / Telekomunikasi"}</div>{u.idPelanggan !== "-" && <div style={{ fontSize: 10, color: "var(--gray-500)" }}>ID Pelanggan: {u.idPelanggan}</div>}</div>
+                  <div style={{ color: "var(--green-600)", fontSize: 13, fontWeight: 700 }}>{formatRp(u.avgPerMonth)} / bln</div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="card">
+            <div className="section-label">AI Insights</div>
+            {insights.map((ins, i) => (
+              <div key={i} className="insight-row">
+                <div className="insight-dot" style={{ background: ins.color }} />
+                <div className="insight-text" style={{ color: ins.color === "var(--red-500)" ? "var(--red-600)" : ins.color === "var(--amber-500)" ? "var(--amber-600)" : ins.color === "var(--blue-600)" ? "var(--blue-600)" : "var(--gray-700)" }}>{ins.text}</div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {tab === "transactions" && (
+        <>
+          <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+            <button className={`filter-btn ${hideself ? "active" : ""}`} onClick={() => setHideself(v => !v)}>{hideself ? "Self-Transfer Disembunyikan" : "Tampilkan Semua"}</button>
+          </div>
+          {hideself && <div style={{ background: "var(--blue-100)", border: "1px solid #93c5fd", borderRadius: "var(--radius-md)", padding: "10px 14px", marginBottom: 14 }}><div style={{ fontSize: 11, fontWeight: 700, color: "var(--blue-600)" }}>Self-Transfer Filtering Aktif</div><div style={{ fontSize: 11, color: "var(--gray-500)", marginTop: 2 }}>Self-transfer difilter dari tampilan dan kalkulasi income.</div></div>}
+          {displayTrx.map((t, i) => (
+            <div key={i} className={`trx-row ${t.flag ? "flag" : t.angsuran ? "angsuran" : t.selfTransfer ? "self" : t.anomali ? "anomali" : t.utility ? "utility" : ""}`}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="trx-desc">
+                  {t.flag && <span className="trx-tag" style={{ background: "var(--red-100)", color: "var(--red-600)" }}>PINJOL</span>}
+                  {t.angsuran && <span className="trx-tag" style={{ background: "var(--amber-100)", color: "var(--amber-600)" }}>ANGSURAN</span>}
+                  {t.selfTransfer && <span className="trx-tag" style={{ background: "var(--blue-100)", color: "var(--blue-600)" }}>SELF-TRANSFER</span>}
+                  {t.anomali && <span className="trx-tag" style={{ background: "#f3e8ff", color: "#7c3aed" }}>ANOMALI</span>}
+                  {t.utility && <span className="trx-tag" style={{ background: "var(--green-100)", color: "var(--green-600)" }}>{t.utility.toUpperCase()}</span>}
+                  {t.atasNama && <span className="trx-tag" style={{ background: "#fef3c7", color: "#92400e" }}>ATAS NAMA?</span>}
+                  {t.category === "usaha" && <span className="trx-tag" style={{ background: "#dbeafe", color: "#1e40af" }}>USAHA</span>}
+                  {t.category === "gaji" && <span className="trx-tag" style={{ background: "var(--green-100)", color: "var(--green-600)" }}>GAJI</span>}
+                  {t.desc}
+                </div>
+                <div className="trx-date">{t.date}</div>
+              </div>
+              <div className="trx-amount" style={{ color: t.amount > 0 ? "var(--green-600)" : "var(--red-600)" }}>{t.amount > 0 ? "+" : "-"}{formatRp(t.amount)}</div>
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ================================================================
+   ANALYSIS SCREEN - with separate konsumen/pasangan + combined view
+   ================================================================ */
+function AnalysisScreen({ konsumen, onNavigate }) {
+  const k = konsumen;
+  if (!k) return null;
+
+  const hasPasangan = k.uploadPasangan;
+  const hasKonsumen = k.uploadKonsumen !== false;
+
+  // For demo: pasangan gets same scenario data but labeled differently
+  const [activeView, setActiveView] = useState("konsumen");
   const [showOneMeModal, setShowOneMeModal] = useState(false);
   const [oneMeSuccess, setOneMeSuccess] = useState(false);
 
-  const displayTrx = trxData.filter(t => hideself ? !t.selfTransfer : true);
+  // Build combined analysis
+  const kAnalysis = computeAnalysis(k);
+  const kInsights = buildInsights(k, kAnalysis);
 
-  const cleanTrx = trxData.filter(t => !t.selfTransfer);
-  const totalKredit = cleanTrx.filter(t => t.amount > 0).reduce((a, b) => a + b.amount, 0);
-  const totalDebit = cleanTrx.filter(t => t.amount < 0).reduce((a, b) => a + b.amount, 0);
-  const avgKredit = k ? totalKredit / k.months : 0;
-  const avgIncome = k ? k.income : 0;
-  const avgSaldo = k ? Math.round(k.income * 1.45) : 0;
+  // For pasangan: create a simulated pasangan konsumen object
+  const pasanganK = hasPasangan ? {
+    ...k, name: k.pasangan, noRek: "9999888877", namaRek: (k.pasangan || "").toUpperCase(),
+    income: Math.round(k.income * 0.7), scenario: "karyawan_gaji",
+    employer: "PT Pasangan Sejahtera", jabatan: "Staff", profesi: "karyawan",
+  } : null;
 
-  const angsuranTrx = trxData.filter(t => t.angsuran);
-  const totalAngsuran = angsuranTrx.reduce((a, b) => a + Math.abs(b.amount), 0);
+  const pAnalysis = pasanganK ? computeAnalysis(pasanganK) : null;
+  const pInsights = pasanganK ? buildInsights(pasanganK, pAnalysis) : [];
 
-  const insights = k ? [
-    { color: "var(--green-500)", text: "Gaji tetap " + formatRp(k.income) + "/bulan dari " + k.employer + " - " + k.months + " bulan konsisten." },
-    { color: "var(--green-500)", text: "Cashflow positif - surplus rata-rata positif setiap bulan." },
-    { color: "var(--green-500)", text: "Tidak ada indikasi window dressing pada saldo rekening." },
-    { color: "var(--amber-500)", text: "Self-transfer terdeteksi dan difilter dari kalkulasi income - tidak dihitung sebagai pemasukan." },
-    ...(k.dsr > 40 ? [{ color: "var(--amber-500)", text: "DSR efektif " + k.dsr + "%. Melebihi batas aman 40%." }] : [{ color: "var(--green-500)", text: "DSR efektif " + k.dsr + "%. Dalam batas aman." }]),
-    ...(k.pinjol > 0 ? [{ color: "var(--red-500)", text: k.pinjol + " transaksi Pinjol (DANACEPAT) terdeteksi - indikasi over-leverage." }] : []),
-  ] : [];
+  // Combined analysis
+  const combinedData = (hasPasangan && pAnalysis) ? {
+    trx: [...kAnalysis.trx, ...(pAnalysis.trx || [])].sort((a,b) => a.date.localeCompare(b.date)),
+    totalKredit: kAnalysis.totalKredit + (pAnalysis.totalKredit || 0),
+    totalDebit: kAnalysis.totalDebit + (pAnalysis.totalDebit || 0),
+    avgKredit: kAnalysis.avgKredit + (pAnalysis.avgKredit || 0),
+    avgIncome: k.income + (pasanganK?.income || 0),
+    monthlySurplus: kAnalysis.monthlySurplus.map((s, i) => s + (pAnalysis.monthlySurplus?.[i] || 0)),
+    positiveSurplusCount: kAnalysis.monthlySurplus.map((s, i) => s + (pAnalysis.monthlySurplus?.[i] || 0)).filter(s => s > 0).length,
+    surplusStable: true,
+    maxSurplus: 0, minSurplus: 0,
+    angsuranPerMonth: [...kAnalysis.angsuranPerMonth, ...(pAnalysis.angsuranPerMonth || [])],
+    totalAngsuranPerMonth: kAnalysis.totalAngsuranPerMonth + (pAnalysis.totalAngsuranPerMonth || 0),
+    dsr: Math.round(((kAnalysis.totalAngsuranPerMonth + (pAnalysis.totalAngsuranPerMonth || 0)) / (k.income + (pasanganK?.income || 0))) * 100),
+    utilityAvg: [...kAnalysis.utilityAvg, ...(pAnalysis.utilityAvg || [])],
+    anomaliTrx: [...kAnalysis.anomaliTrx, ...(pAnalysis.anomaliTrx || [])],
+    pinjolTrx: [...kAnalysis.pinjolTrx, ...(pAnalysis.pinjolTrx || [])],
+    pinjolCount: kAnalysis.pinjolCount + (pAnalysis.pinjolCount || 0),
+    selfTransferTrx: [...kAnalysis.selfTransferTrx, ...(pAnalysis.selfTransferTrx || [])],
+    totalSelfTransfer: kAnalysis.totalSelfTransfer + (pAnalysis.totalSelfTransfer || 0),
+    atasNamaTrx: [...kAnalysis.atasNamaTrx, ...(pAnalysis.atasNamaTrx || [])],
+    usahaTrx: [...kAnalysis.usahaTrx, ...(pAnalysis.usahaTrx || [])],
+    usahaIncome: kAnalysis.usahaIncome + (pAnalysis.usahaIncome || 0),
+    insights: [...kInsights, { color: "var(--blue-600)", text: "Analisa gabungan: Total penghasilan gabungan konsumen + pasangan = " + formatRp(k.income + (pasanganK?.income || 0)) + "/bulan. DSR gabungan = " + Math.round(((kAnalysis.totalAngsuranPerMonth + (pAnalysis.totalAngsuranPerMonth || 0)) / (k.income + (pasanganK?.income || 0))) * 100) + "%." }],
+  } : null;
+
+  const combinedK = hasPasangan ? { ...k, name: k.name + " & " + k.pasangan, income: k.income + (pasanganK?.income || 0) } : null;
+
+  const views = [];
+  if (hasKonsumen) views.push({ id: "konsumen", label: "Rek. " + k.name });
+  if (hasPasangan) views.push({ id: "pasangan", label: "Rek. " + k.pasangan });
+  if (hasKonsumen && hasPasangan) views.push({ id: "gabungan", label: "Analisa Gabungan" });
 
   return (
     <div>
       <div style={{ padding: "16px 20px 0", background: "var(--white)", borderBottom: "1px solid var(--gray-200)", position: "sticky", top: 0, zIndex: 10 }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <button onClick={() => onNavigate("dashboard")} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "var(--blue-600)", fontSize: 12, fontWeight: 700, cursor: "pointer", padding: "4px 0", marginBottom: 8, fontFamily: "var(--font)" }}>
-            &#8592; Kembali ke Dashboard
-          </button>
-          <div style={{ fontSize: 18, fontWeight: 800, color: "var(--gray-900)" }}>Analisa Keuangan AI</div>
-          <div style={{ fontSize: 12, color: "var(--gray-500)", marginBottom: 12 }}>
-            {k ? k.name + " - " + k.cabang + " - Januari s.d. Maret 2025" : "Pilih konsumen dari Dashboard"}
-          </div>
-          <div className="tabs" style={{ marginBottom: 0 }}>
-            {[["summary", "Ringkasan"], ["transactions", "Transaksi"]].map(([id, lbl]) => (
-              <button key={id} className={`tab-btn ${tab === id ? "active" : ""}`} onClick={() => setTab(id)}>{lbl}</button>
-            ))}
-          </div>
+          <button onClick={() => onNavigate("dashboard")} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "var(--blue-600)", fontSize: 12, fontWeight: 700, cursor: "pointer", padding: "4px 0", marginBottom: 8, fontFamily: "var(--font)" }}>&#8592; Kembali ke Dashboard</button>
+          <div style={{ fontSize: 18, fontWeight: 800 }}>Analisa Keuangan AI</div>
+          <div style={{ fontSize: 12, color: "var(--gray-500)", marginBottom: 12 }}>{k.name} - {k.cabang} - Januari s.d. Maret 2025</div>
+          {views.length > 1 && (
+            <div className="analysis-tab-bar">
+              {views.map(v => (
+                <button key={v.id} className={activeView === v.id ? "active" : ""} onClick={() => setActiveView(v.id)}>{v.label}</button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       <div className="page" style={{ paddingTop: 18 }}>
-        {!k && (
-          <div className="card" style={{ textAlign: "center", padding: 40, color: "var(--gray-400)" }}>
-            <div style={{ fontSize: 40, marginBottom: 12 }}>?</div>
-            <div style={{ fontSize: 14, fontWeight: 600 }}>Belum ada konsumen dipilih</div>
-            <div style={{ fontSize: 12, marginTop: 4 }}>Pilih konsumen dari Dashboard atau Upload mutasi baru</div>
-          </div>
-        )}
+        {activeView === "konsumen" && hasKonsumen && <AnalysisPanel k={k} />}
+        {activeView === "pasangan" && hasPasangan && pasanganK && <AnalysisPanel k={pasanganK} label={"Analisa Rekening Pasangan: " + k.pasangan} />}
+        {activeView === "gabungan" && combinedData && combinedK && <AnalysisPanel k={combinedK} label="Analisa Gabungan Konsumen + Pasangan" isCombined={true} combinedData={combinedData} />}
 
-        {k && tab === "summary" && (
-          <>
-            {/* Warning if only 1 month data */}
-            {k.months <= 1 && (
-              <div style={{ background: "var(--amber-100)", border: "1px solid #fde68a", borderRadius: "var(--radius-lg)", padding: "14px 18px", marginBottom: 16, display: "flex", gap: 12, alignItems: "flex-start" }}>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "var(--amber-600)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 14, flexShrink: 0 }}>!</div>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: "var(--amber-600)" }}>Data Mutasi Hanya 1 Bulan</div>
-                  <div style={{ fontSize: 12, color: "var(--gray-700)", marginTop: 3, lineHeight: 1.5 }}>Data mutasi yang diupload hanya 1 bulan. Data analisa yang dihasilkan bisa jadi tidak mencerminkan kondisi keuangan konsumen yang sebenarnya. Disarankan untuk mengupload minimal 3 bulan mutasi rekening.</div>
-                </div>
-              </div>
-            )}
-            {/* Konsumen info card */}
-            <div className="card" style={{ display: "flex", gap: 14, alignItems: "center", marginBottom: 16 }}>
-              <div className="avatar-circle" style={{ width: 48, height: 48, fontSize: 18 }}>{k.name[0]}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 15, fontWeight: 700 }}>{k.name}</div>
-                <div style={{ fontSize: 11, color: "var(--gray-500)" }}>{k.cabang} - Bank {k.bank}</div>
-                <div style={{ fontSize: 11, color: "var(--gray-500)" }}>CMO: {k.cmo}</div>
-              </div>
-            </div>
+        <button className="btn-gold" onClick={() => setShowOneMeModal(true)} style={{ marginTop: 16 }}>Lanjutkan Aplikasi ke ONE ME</button>
 
-            <div className="kpi-grid" style={{ marginBottom: 16 }}>
-              {[
-                ["Total Kredit (" + k.months + " bln)", formatRp(totalKredit), "var(--green-600)"],
-                ["Avg Kredit / Bln", formatRp(avgKredit), "var(--green-600)"],
-                ["Avg Income / Bln", formatRp(avgIncome), "var(--blue-600)"],
-                ["Avg Saldo Mengendap", formatRp(avgSaldo), "var(--blue-800)"],
-                ["Total Debit (" + k.months + " bln)", formatRp(totalDebit), "var(--red-600)"],
-                ["Total Angsuran / Bln", formatRp(totalAngsuran), "var(--amber-600)"],
-              ].map(([l, v, col], i) => (
-                <div key={i} className="kpi-card">
-                  <div className="kpi-val" style={{ color: col }}>{v}</div>
-                  <div className="kpi-label">{l}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Angsuran */}
-            <div className="card" style={{ borderColor: "#fde68a" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--amber-600)" }}>Deteksi Angsuran di Tempat Lain</div>
-                <button onClick={() => setShowAngsuran(v => !v)} style={{ background: "none", border: "none", color: "var(--blue-600)", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
-                  {showAngsuran ? "Sembunyikan" : "Lihat Detail"}
-                </button>
-              </div>
-              <div style={{ fontSize: 11, color: "var(--gray-500)", marginBottom: showAngsuran ? 12 : 0 }}>
-                ML mendeteksi otomatis dari keterangan AUTODEBET / ANGSURAN pada mutasi
-              </div>
-              {showAngsuran && (
-                <>
-                  {angsuranTrx.map((t, i) => (
-                    <div key={i} className="angsuran-item">
-                      <div>
-                        <div style={{ fontSize: 12, fontWeight: 600, color: "var(--gray-700)" }}>{t.desc}</div>
-                        <div style={{ fontSize: 10, color: "var(--gray-500)" }}>{t.date}</div>
-                      </div>
-                      <div style={{ color: "var(--red-600)", fontSize: 13, fontWeight: 700, flexShrink: 0 }}>-{formatRp(t.amount)}</div>
-                    </div>
-                  ))}
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid var(--gray-200)" }}>
-                    <div style={{ fontSize: 12, fontWeight: 700 }}>Total Angsuran Terdeteksi</div>
-                    <div style={{ color: "var(--amber-600)", fontSize: 13, fontWeight: 900 }}>{formatRp(totalAngsuran)} / bln</div>
+        {showOneMeModal && (
+          <div className="modal-overlay" onClick={() => { setShowOneMeModal(false); setOneMeSuccess(false); }}>
+            <div className="modal-panel" style={{ maxWidth: 440, borderRadius: "var(--radius-xl)" }} onClick={e => e.stopPropagation()}>
+              {!oneMeSuccess ? (
+                <div style={{ padding: "32px 28px", textAlign: "center" }}>
+                  <div style={{ width: 64, height: 64, borderRadius: 16, background: "linear-gradient(135deg, var(--gold-400), var(--gold-500))", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", boxShadow: "0 6px 24px rgba(212,146,10,0.3)" }}><span style={{ fontSize: 28 }}>&#x2728;</span></div>
+                  <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 6 }}>Lanjutkan ke ONE ME?</div>
+                  <div style={{ fontSize: 13, color: "var(--gray-500)", lineHeight: 1.6, marginBottom: 24 }}>Data analisa keuangan <strong>{k.name}</strong> akan dikirim ke ONE ME.</div>
+                  <div style={{ display: "flex", gap: 10 }}>
+                    <button onClick={() => { setShowOneMeModal(false); setOneMeSuccess(false); }} style={{ flex: 1, padding: "12px 16px", borderRadius: "var(--radius-md)", border: "1px solid var(--gray-200)", background: "var(--white)", color: "var(--gray-700)", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "var(--font)" }}>Batal</button>
+                    <button onClick={() => setOneMeSuccess(true)} style={{ flex: 1, padding: "12px 16px", borderRadius: "var(--radius-md)", border: "none", background: "linear-gradient(135deg, var(--gold-400), var(--gold-500))", color: "#fff", fontWeight: 800, fontSize: 13, cursor: "pointer", fontFamily: "var(--font)" }}>Ya, Lanjutkan</button>
                   </div>
-                </>
+                </div>
+              ) : (
+                <div style={{ padding: "36px 28px", textAlign: "center" }}>
+                  <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--green-100)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }}><span style={{ fontSize: 30, color: "var(--green-600)" }}>&#10003;</span></div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: "var(--green-600)", marginBottom: 6 }}>Berhasil Dikirim!</div>
+                  <div style={{ fontSize: 13, color: "var(--gray-500)", lineHeight: 1.6, marginBottom: 24 }}>Data analisa <strong>{k.name}</strong> telah berhasil diupload ke ONE ME.</div>
+                  <button onClick={() => { setShowOneMeModal(false); setOneMeSuccess(false); }} style={{ width: "100%", padding: "12px 16px", borderRadius: "var(--radius-md)", border: "none", background: "linear-gradient(135deg, var(--blue-600), var(--blue-700))", color: "#fff", fontWeight: 800, fontSize: 13, cursor: "pointer", fontFamily: "var(--font)" }}>Tutup</button>
+                </div>
               )}
             </div>
-
-            {/* AI Insights */}
-            <div className="card">
-              <div className="section-label">AI Insights</div>
-              {insights.map((ins, i) => (
-                <div key={i} className="insight-row">
-                  <div className="insight-dot" style={{ background: ins.color }} />
-                  <div className="insight-text" style={{ color: ins.color === "var(--red-500)" ? "var(--red-600)" : ins.color === "var(--amber-500)" ? "var(--amber-600)" : "var(--gray-700)" }}>{ins.text}</div>
-                </div>
-              ))}
-            </div>
-
-            <button className="btn-gold" onClick={() => setShowOneMeModal(true)}>
-              Lanjutkan Aplikasi ke ONE ME
-            </button>
-
-            {/* ONE ME Confirmation Modal */}
-            {showOneMeModal && (
-              <div className="modal-overlay" onClick={() => { setShowOneMeModal(false); setOneMeSuccess(false); }}>
-                <div className="modal-panel" style={{ maxWidth: 440, borderRadius: "var(--radius-xl)" }} onClick={e => e.stopPropagation()}>
-                  {!oneMeSuccess ? (
-                    <div style={{ padding: "32px 28px", textAlign: "center" }}>
-                      <div style={{ width: 64, height: 64, borderRadius: 16, background: "linear-gradient(135deg, var(--gold-400), var(--gold-500))", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", boxShadow: "0 6px 24px rgba(212,146,10,0.3)" }}>
-                        <span style={{ fontSize: 28 }}>&#x2728;</span>
-                      </div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: "var(--gray-900)", marginBottom: 6 }}>Lanjutkan ke ONE ME?</div>
-                      <div style={{ fontSize: 13, color: "var(--gray-500)", lineHeight: 1.6, marginBottom: 24 }}>
-                        Data analisa keuangan <strong style={{ color: "var(--gray-700)" }}>{k ? k.name : ""}</strong> akan dikirim ke sistem ONE ME untuk proses selanjutnya.
-                      </div>
-                      <div style={{ display: "flex", gap: 10 }}>
-                        <button onClick={() => { setShowOneMeModal(false); setOneMeSuccess(false); }} style={{ flex: 1, padding: "12px 16px", borderRadius: "var(--radius-md)", border: "1px solid var(--gray-200)", background: "var(--white)", color: "var(--gray-700)", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "var(--font)" }}>Batal</button>
-                        <button onClick={() => setOneMeSuccess(true)} style={{ flex: 1, padding: "12px 16px", borderRadius: "var(--radius-md)", border: "none", background: "linear-gradient(135deg, var(--gold-400), var(--gold-500))", color: "#fff", fontWeight: 800, fontSize: 13, cursor: "pointer", boxShadow: "0 4px 16px rgba(212,146,10,0.3)", fontFamily: "var(--font)" }}>Ya, Lanjutkan</button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div style={{ padding: "36px 28px", textAlign: "center" }}>
-                      <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--green-100)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }}>
-                        <span style={{ fontSize: 30, color: "var(--green-600)" }}>&#10003;</span>
-                      </div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: "var(--green-600)", marginBottom: 6 }}>Berhasil Dikirim!</div>
-                      <div style={{ fontSize: 13, color: "var(--gray-500)", lineHeight: 1.6, marginBottom: 24 }}>
-                        Data analisa <strong style={{ color: "var(--gray-700)" }}>{k ? k.name : ""}</strong> telah berhasil diupload ke ONE ME. Silakan lanjutkan proses di sistem ONE ME.
-                      </div>
-                      <button onClick={() => { setShowOneMeModal(false); setOneMeSuccess(false); }} style={{ width: "100%", padding: "12px 16px", borderRadius: "var(--radius-md)", border: "none", background: "linear-gradient(135deg, var(--blue-600), var(--blue-700))", color: "#fff", fontWeight: 800, fontSize: 13, cursor: "pointer", boxShadow: "0 4px 16px rgba(0,63,136,0.25)", fontFamily: "var(--font)" }}>Tutup</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </>
-        )}
-
-        {k && tab === "transactions" && (
-          <>
-            <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-              <button className={`filter-btn ${hideself ? "active" : ""}`} onClick={() => setHideself(v => !v)}>
-                {hideself ? "Self-Transfer Disembunyikan" : "Tampilkan Self-Transfer"}
-              </button>
-            </div>
-
-            {hideself && (
-              <div style={{ background: "var(--blue-100)", border: "1px solid #93c5fd", borderRadius: "var(--radius-md)", padding: "10px 14px", marginBottom: 14 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "var(--blue-600)" }}>Self-Transfer Filtering Aktif</div>
-                <div style={{ fontSize: 11, color: "var(--gray-500)", marginTop: 2 }}>
-                  Self-transfer (an. konsumen / pasangan) difilter dari tampilan dan kalkulasi income.
-                </div>
-              </div>
-            )}
-
-            {displayTrx.map((t, i) => (
-              <div key={i} className={`trx-row ${t.flag ? "flag" : t.angsuran ? "angsuran" : t.selfTransfer ? "self" : ""}`}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div className="trx-desc">
-                    {t.flag && <span className="trx-tag" style={{ background: "var(--red-100)", color: "var(--red-600)" }}>PINJOL</span>}
-                    {t.angsuran && <span className="trx-tag" style={{ background: "var(--amber-100)", color: "var(--amber-600)" }}>ANGSURAN</span>}
-                    {t.selfTransfer && <span className="trx-tag" style={{ background: "var(--blue-100)", color: "var(--blue-600)" }}>SELF-TRANSFER</span>}
-                    {t.desc}
-                  </div>
-                  <div className="trx-date">{t.date}</div>
-                </div>
-                <div className="trx-amount" style={{ color: t.amount > 0 ? "var(--green-600)" : "var(--red-600)" }}>
-                  {t.amount > 0 ? "+" : "-"}{formatRp(t.amount)}
-                </div>
-              </div>
-            ))}
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -1740,104 +1166,50 @@ function App() {
     ...(selectedKonsumen ? [{ id: "analysis", label: "Analisa", letter: "A" }] : []),
   ];
 
-  const activeNav = screen;
-
-  function handleLogin() {
-    // Randomly pick a user for demo
-    const usr = TEAM_USERS[Math.floor(Math.random() * TEAM_USERS.length)];
-    setCurrentUser(usr);
-    setLoggedIn(true);
-    setScreen("dashboard");
-  }
-
+  function handleLogin() { const usr = TEAM_USERS[Math.floor(Math.random() * TEAM_USERS.length)]; setCurrentUser(usr); setLoggedIn(true); setScreen("dashboard"); }
   function handleSelectKonsumen(k) {
-    setSelectedKonsumen(k);
+    if (k.scenario === "wrong_account") { setSelectedKonsumen(k); setScreen("verification"); return; }
+    setSelectedKonsumen({ ...k, uploadKonsumen: true, uploadPasangan: false });
     setScreen("analysis");
   }
+  function handleLogout() { setLoggedIn(false); setScreen("login"); setSelectedKonsumen(null); }
+  function handleUploadComplete(k) { setSelectedKonsumen(k); setScreen("verification"); }
 
-  function handleLogout() {
-    setLoggedIn(false);
-    setScreen("login");
-    setSelectedKonsumen(null);
-  }
-
-  function handleUploadComplete(k) {
-    setSelectedKonsumen(k);
-    setScreen("verification");
-  }
-
-  if (!loggedIn) {
-    return <LoginScreen onLogin={handleLogin} />;
-  }
+  if (!loggedIn) return <LoginScreen onLogin={handleLogin} />;
 
   return (
     <UserContext.Provider value={currentUser}>
       <div className={`app-shell ${loggedIn ? "logged-in" : ""}`}>
-
-        {/* SIDEBAR - Desktop */}
         <div className="sidebar">
-          <div className="brand">
-            <div className="brand-icon">FA</div>
-            <div>
-              <div className="brand-text">FINA <span>AI</span></div>
-              <div className="brand-sub">Financial INsight and Analysis</div>
-            </div>
-          </div>
+          <div className="brand"><div className="brand-icon">FA</div><div><div className="brand-text">FINA <span>AI</span></div><div className="brand-sub">Financial INsight and Analysis</div></div></div>
           <div className="sidebar-nav">
-            {NAV.map(n => (
-              <button key={n.id} className={activeNav === n.id ? "active" : ""} onClick={() => setScreen(n.id)}>
-                <div className="nav-icon">{n.letter}</div>
-                {n.label}
-              </button>
-            ))}
+            {NAV.map(n => (<button key={n.id} className={screen === n.id ? "active" : ""} onClick={() => setScreen(n.id)}><div className="nav-icon">{n.letter}</div>{n.label}</button>))}
           </div>
           <div className="sidebar-user" style={{ flexDirection: "column", alignItems: "stretch", gap: 8 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div className="avatar">{currentUser.name[0]}</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div className="uname">{currentUser.name}</div>
-                <div className="ubranch">{currentUser.branches.join(", ")}</div>
-              </div>
+              <div style={{ flex: 1, minWidth: 0 }}><div className="uname">{currentUser.name}</div><div className="ubranch">{currentUser.branches.join(", ")}</div></div>
             </div>
-            <button onClick={handleLogout} style={{ width: "100%", padding: "8px 12px", borderRadius: "var(--radius-sm)", border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)", fontSize: 11, fontWeight: 600, cursor: "pointer", transition: "all 0.2s", textAlign: "center" }}
+            <button onClick={handleLogout} style={{ width: "100%", padding: "8px 12px", borderRadius: "var(--radius-sm)", border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)", fontSize: 11, fontWeight: 600, cursor: "pointer", textAlign: "center" }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.12)"; e.currentTarget.style.color = "#fff"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}>
-              Logout
-            </button>
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}>Logout</button>
           </div>
         </div>
-
-        {/* TOPBAR - Mobile */}
         <div className="topbar-mobile">
-          <div className="brand-row">
-            <div className="brand-icon-sm">FA</div>
-            <div className="brand-label">FINA <span>AI</span></div>
-          </div>
+          <div className="brand-row"><div className="brand-icon-sm">FA</div><div className="brand-label">FINA <span>AI</span></div></div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <span className="status-dot" />
-              <span className="status-text">Online</span>
-            </div>
+            <div style={{ display: "flex", alignItems: "center" }}><span className="status-dot" /><span className="status-text">Online</span></div>
             <button onClick={handleLogout} style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 6, color: "#fff", fontSize: 10, fontWeight: 600, padding: "5px 10px", cursor: "pointer" }}>Logout</button>
           </div>
         </div>
-
-        {/* MAIN CONTENT */}
         <div className="main-content">
           {screen === "dashboard" && <DashboardScreen onNavigate={setScreen} onSelectKonsumen={handleSelectKonsumen} />}
           {screen === "upload" && <UploadScreen onNavigate={setScreen} onUploadComplete={handleUploadComplete} />}
           {screen === "verification" && <VerificationScreen onNavigate={setScreen} konsumen={selectedKonsumen} />}
           {screen === "analysis" && <AnalysisScreen konsumen={selectedKonsumen} onNavigate={setScreen} />}
         </div>
-
-        {/* BOTTOM NAV - Mobile */}
         <div className="bottom-nav">
-          {NAV.map(n => (
-            <button key={n.id} className={activeNav === n.id ? "active" : ""} onClick={() => setScreen(n.id)}>
-              <div className="nav-dot">{n.letter}</div>
-              <div className="nav-label">{n.label}</div>
-            </button>
-          ))}
+          {NAV.map(n => (<button key={n.id} className={screen === n.id ? "active" : ""} onClick={() => setScreen(n.id)}><div className="nav-dot">{n.letter}</div><div className="nav-label">{n.label}</div></button>))}
         </div>
       </div>
     </UserContext.Provider>
